@@ -31,8 +31,26 @@
         <!-- partial:partials/_navbar.html -->
     @include('admin.navbar')
         <!-- partial -->
-        @include('admin.body')
-
+        <div class="main-panel">
+            <div class="content-wrapper">
+                @if(session()->has('message'))
+                <div class="alert alert-success">
+                    <button types='button' class='close' data-dismiss="alert" aria-hidden="true">x</button>
+                  {{session()->get('message')}}  
+                </div>
+                @endif
+                <div class="mx-auto " style="width: 200px;">
+                    <h2>Add Category</h2>
+                    <form action="{{url('/add_category')}}" method="POST">
+                        @csrf
+                        <div class="form-group d-flex">
+                            <input type="text" class="p-1" name="category" placeholder="category">
+                            <input type="submit" class="btn btn-primary" value="Add">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
         <!-- main-panel ends -->
       </div>
       <!-- page-body-wrapper ends -->
