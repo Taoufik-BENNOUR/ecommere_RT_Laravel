@@ -49,6 +49,23 @@
                         </div>
                     </form>
                 </div>
+                <table class="table">
+                  <tr>
+                    <td>Id</td>
+                    <td>Category Name</td>
+                    <td>Action</td>
+                  </tr>
+                  
+                  @foreach($categories as $category)
+                  <tr>
+                    <td>{{ $category->id }}</td>
+                    <td>{{ $category->category_name }}</td>
+                    <td><a onclick="return confirm('Are You Sure To Delete')" href="{{url('delete_category',$category->id)}}"><i class="mdi mdi-delete-forever" style="font-size:24px;color:red;cursor:pointer"></i></a></td>
+                  </tr>
+                @endforeach
+                  
+                </table>
+
             </div>
         </div>
         <!-- main-panel ends -->
