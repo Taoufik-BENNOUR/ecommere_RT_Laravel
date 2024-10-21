@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Category Admin</title>
+    <title>Product Admin</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="admin/assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="admin/assets/vendors/css/vendor.bundle.base.css">
@@ -40,31 +40,59 @@
                 </div>
                 @endif
                 <div class="mx-auto " style="width: 200px;">
-                  @csrf
-                    <h2>Add Category</h2>
-                    <form action="{{url('/add_category')}}" method="POST">
-                        <div class="form-group d-flex">
-                            <input type="text" class="p-1" name="category" placeholder="category">
-                            <input type="submit" class="btn btn-primary" value="Add">
-                        </div>
-                    </form>
+                    <h2>Add Product</h2>
                 </div>
-                <table class="table">
-                  <tr>
-                    <td>Id</td>
-                    <td>Category Name</td>
-                    <td>Action</td>
-                  </tr>
-                  
-                  @foreach($categories as $category)
-                  <tr>
-                    <td>{{ $category->id }}</td>
-                    <td>{{ $category->category_name }}</td>
-                    <td><a onclick="return confirm('Are You Sure To Delete')" href="{{url('delete_category',$category->id)}}"><i class="mdi mdi-delete-forever" style="font-size:24px;color:red;cursor:pointer"></i></a></td>
-                  </tr>
+                <div class="col-6 grid-margin stretch-card mx-auto">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Add product form </h4>
+                    <p class="card-description"> Basic form elements </p>
+                    <form class="forms-sample" action="{{ url('add_new_product') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group">
+                        <label for="title">title</label>
+                        <input type="text" class="form-control" id="title" name="title" required placeholder="title">
+                      </div>
+                      <div class="form-group">
+                        <label for="category">Category</label>
+                        <select class="form-control" id="category" name="category">
+                        @foreach($categories as $category)
+                    <option>{{ $category->category_name }}</option>
                 @endforeach
-                  
-                </table>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="price">Price</label>
+                        <input type="number" class="form-control" id="price" name="price" required placeholder="price">
+                      </div>
+                      <div class="form-group">
+                        <label for="quantity">Quantity</label>
+                        <input type="number" class="form-control" id="quantity" name="quantity" required placeholder="quantity">
+                      </div>
+                      <div class="form-group">
+                        <label for="discount">Discount</label>
+                        <input type="number" class="form-control" id="discount" name="discount" required placeholder="discount">
+                      </div>
+                      <div class="form-group">
+                        <label>Image upload</label>
+                        <input type="file" name="image" class="file-upload-default" required>
+                        <div class="input-group col-xs-12">
+                          <input type="text" class="form-control file-upload-info" disabled required placeholder="Upload Image">
+                          <span class="input-group-append">
+                            <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="4"></textarea>
+                      </div>
+                      <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                      <button class="btn btn-dark">Cancel</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
 
             </div>
         </div>
@@ -92,6 +120,8 @@
     <!-- endinject -->
     <!-- Custom js for this page -->
     <script src="admin/assets/js/dashboard.js"></script>
+    <script src="admin/assets/js/file-upload.js"></script>
+
     <!-- End custom js for this page -->
   </body>
 </html>

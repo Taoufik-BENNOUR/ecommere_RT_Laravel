@@ -81,6 +81,21 @@
             </div>
           </li>
           <li class="nav-item menu-items">
+            <a class="nav-link" data-toggle="collapse" href="#products" aria-expanded="false" aria-controls="products">
+              <span class="menu-icon">
+                <i class="mdi mdi-dropbox"></i>
+              </span>
+              <span class="menu-title">Products</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="products">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="{{url('add_product')}}">Add products</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{url('view_product')}}">View Products</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item menu-items">
             <a class="nav-link" href="{{url('view_category')}}">
               <span class="menu-icon">
                 <i class="mdi mdi-playlist-play"></i>

@@ -23,3 +23,13 @@ Route::get('/view_category',[AdminController::class,'view_category']);
 Route::post('/add_category',[AdminController::class,'add_category']);
 
 Route::get('/delete_category/{id}',[AdminController::class,'delete_category']);
+
+
+Route::get('/view_product',[AdminController::class,'view_product']);
+
+Route::get('/add_product',[AdminController::class,'add_product_page']);
+
+Route::post('/add_new_product', [AdminController::class,'add_product']);
+
+
+

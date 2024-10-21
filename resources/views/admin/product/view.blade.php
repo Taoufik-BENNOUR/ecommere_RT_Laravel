@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Category Admin</title>
+    <title>Product Admin</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="admin/assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="admin/assets/vendors/css/vendor.bundle.base.css">
@@ -40,9 +40,9 @@
                 </div>
                 @endif
                 <div class="mx-auto " style="width: 200px;">
-                  @csrf
-                    <h2>Add Category</h2>
+                    <h2>Products</h2>
                     <form action="{{url('/add_category')}}" method="POST">
+                        @csrf
                         <div class="form-group d-flex">
                             <input type="text" class="p-1" name="category" placeholder="category">
                             <input type="submit" class="btn btn-primary" value="Add">
@@ -56,13 +56,7 @@
                     <td>Action</td>
                   </tr>
                   
-                  @foreach($categories as $category)
-                  <tr>
-                    <td>{{ $category->id }}</td>
-                    <td>{{ $category->category_name }}</td>
-                    <td><a onclick="return confirm('Are You Sure To Delete')" href="{{url('delete_category',$category->id)}}"><i class="mdi mdi-delete-forever" style="font-size:24px;color:red;cursor:pointer"></i></a></td>
-                  </tr>
-                @endforeach
+     
                   
                 </table>
 
