@@ -27,7 +27,8 @@ class AdminController extends Controller
     }
 
     public function view_product(){
-        return view('admin.product.view');
+        $products = Product::all();
+        return view('admin.product.view',compact('products'));
     }
     public function add_product_page(){
         $categories=Category::all();
@@ -44,7 +45,14 @@ class AdminController extends Controller
             $image=$request->image;
             $imagename=time().'.'.$image->getClientOriginalExtension();
             $request->image->move('product',$imagename);
+            $data->image=$imagename;
             $data->save();
             return redirect()->back()->with('message','Product Added Successfully');
+    }
+    public function delete_product($id){
+        $product=Product::find($id);
+        $product->delete();
+        return redirect()->back()->with('message','Product Deleted Successfully');
+
     }
 }

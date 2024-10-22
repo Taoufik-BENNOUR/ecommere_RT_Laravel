@@ -21,6 +21,16 @@
     <link rel="stylesheet" href="admin/assets/css/style.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="admin/assets/images/favicon.png" />
+    <style>
+.description-column {
+  width: 100%; /* Adjust as needed */
+    overflow-wrap: break-word; /* Break long words to next line */
+    white-space: normal; /* Allow text to wrap */
+    word-wrap: break-word; /* For older browsers */
+    height: auto; /* Ensure height can adjust */
+
+}
+</style>
   </head>
   <body>
     <div class="container-scroller">
@@ -41,22 +51,33 @@
                 @endif
                 <div class="mx-auto " style="width: 200px;">
                     <h2>Products</h2>
-                    <form action="{{url('/add_category')}}" method="POST">
                         @csrf
-                        <div class="form-group d-flex">
-                            <input type="text" class="p-1" name="category" placeholder="category">
-                            <input type="submit" class="btn btn-primary" value="Add">
-                        </div>
-                    </form>
                 </div>
-                <table class="table">
+                <table class="table table-dark">
                   <tr>
                     <td>Id</td>
-                    <td>Category Name</td>
+                    <td>Title</td>
+                    <td >Description</td>
+                    <td>Quantity</td>
+                    <td>Category</td>
+                    <td>Image</td>
                     <td>Action</td>
                   </tr>
-                  
-     
+                  <tbody>
+
+                  @foreach($products as $product)
+                  <tr>
+                    <td>{{ $product->id }}</td>
+                    <td>{{ $product->title }}</td>
+                    <td style="width:300px"><p class="description-column"> {{ $product->description }}</p></td>
+                    <td>{{ $product->quantity }}</td>
+                    <td>{{ $product->category }}</td>
+                    <td ><img src="product/{{ $product->image }}" alt="" style="width: 100px; height: auto;" ></td>
+                    <td><a onclick="return confirm('Are You Sure To Delete')" href="{{url('delete_product',$product->id)}}"><i class="mdi mdi-delete-forever" style="font-size:24px;color:red;cursor:pointer"></i></a></td>
+                  </tr>
+                @endforeach
+                <tbody>
+
                   
                 </table>
 

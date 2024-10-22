@@ -71,7 +71,7 @@
                       </div>
                       <div class="form-group">
                         <label for="discount">Discount</label>
-                        <input type="number" class="form-control" id="discount" name="discount" required placeholder="discount">
+                        <input type="number" class="form-control" id="discount" name="discount" placeholder="discount">
                       </div>
                       <div class="form-group">
                         <label>Image upload</label>
