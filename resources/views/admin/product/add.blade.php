@@ -57,8 +57,8 @@
                         <label for="category">Category</label>
                         <select class="form-control" id="category" name="category">
                         @foreach($categories as $category)
-                    <option>{{ $category->category_name }}</option>
-                @endforeach
+                          <option>{{ $category->category_name }}</option>
+                        @endforeach
                         </select>
                       </div>
                       <div class="form-group">

@@ -59,6 +59,7 @@
                     <td>Title</td>
                     <td >Description</td>
                     <td>Quantity</td>
+                    <td>Price</td>
                     <td>Category</td>
                     <td>Image</td>
                     <td>Action</td>
@@ -71,9 +72,14 @@
                     <td>{{ $product->title }}</td>
                     <td style="width:300px"><p class="description-column"> {{ $product->description }}</p></td>
                     <td>{{ $product->quantity }}</td>
+                    <td>{{ $product->price }}</td>
                     <td>{{ $product->category }}</td>
                     <td ><img src="product/{{ $product->image }}" alt="" style="width: 100px; height: auto;" ></td>
-                    <td><a onclick="return confirm('Are You Sure To Delete')" href="{{url('delete_product',$product->id)}}"><i class="mdi mdi-delete-forever" style="font-size:24px;color:red;cursor:pointer"></i></a></td>
+                    <td>
+                      <a onclick="return confirm('Are You Sure To Delete')" href="{{url('delete_product',$product->id)}}"><i class="mdi mdi-delete-forever" style="font-size:24px;color:red;cursor:pointer"></i></a>
+                    </td>
+                    <td>                    <a href="{{url('update_product',$product->id)}}"><i  class="mdi mdi-pencil-box-outline" style="font-size:24px;color:green;cursor:pointer"></i></a>
+                    </td>
                   </tr>
                 @endforeach
                 <tbody>
