@@ -9,11 +9,13 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row align-items-end">
+        @csrf
+        @foreach($products as $product)
         <div class="col-lg-4 col-md-6">
           <div class="single-product">
             <div class="product-img">
-              <img class="img-fluid w-100" src="img/product/feature-product/f-p-1.jpg" alt="" />
+              <img class="img-fluid w-100 align-items-center" src="product/{{$product->image}}" alt="" />
               <div class="p_icon">
                 <a href="#">
                   <i class="ti-eye"></i>
@@ -28,15 +30,17 @@
             </div>
             <div class="product-btm">
               <a href="#" class="d-block">
-                <h4>Latest men’s sneaker</h4>
+                <h4>{{$product->title}}</h4>
               </a>
               <div class="mt-3">
-                <span class="mr-4">$25.00</span>
-                <del>$35.00</del>
+                <span class="mr-4">${{$product->price - $product->discount}}</span>
+                <del>${{$product->price}}</del>
               </div>
             </div>
           </div>
         </div>
+        @endforeach
+
 
         <div class="col-lg-4 col-md-6">
           <div class="single-product">

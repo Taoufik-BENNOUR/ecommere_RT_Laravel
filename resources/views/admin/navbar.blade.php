@@ -151,7 +151,7 @@
               <li class="nav-item dropdown">
                 <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
                   <div class="navbar-profile">
-                    <img class="img-xs rounded-circle" src="admin/assets/images/faces/face15.jpg" alt="">
+                    <img class="img-xs rounded-circle" src="{{asset('admin/assets/images/faces/face15.jpg')}}" alt="">
                     <p class="mb-0 d-none d-sm-block navbar-profile-name">{{ Auth::user()->name }}</p>
                     <i class="mdi mdi-menu-down d-none d-sm-block"></i>
                   </div>
@@ -178,10 +178,10 @@
                     </div>
 
                     <div class="preview-item-content">
-                      <form method="POST" action="{{ route('logout') }}" class="inline">
+                      <form method="POST" action="{{ route('logout') }}" >
                     @csrf
 
-                    <button type="submit" class="preview-subject mb-1">
+                    <button type="submit" class="preview-subject mb-1" style="background:none;border:none;color:white">
                         {{ __('Log Out') }}
                     </button>
                 </form>

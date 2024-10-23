@@ -58,15 +58,15 @@
         {{session()->get('message')}}
         </div>
       @endif
-          <div class="mx-auto " style="width: 200px;">
-            <h2>Products</h2>
+          <div class="text-center">
+            <h2>Update Product</h2>
 
           </div>
 
           <div class="col-8 grid-margin stretch-card mx-auto">
             <div class="card">
               <div class="card-body">
-                <h4 class="card-title">Add product form </h4>
+                <h4 class="card-title">Update product form </h4>
                 <p class="card-description"> Basic form elements </p>
                 <form class="forms-sample" action="{{ url('/update_product_vt', $product->id) }}" method="POST"
                   enctype="multipart/form-data">
