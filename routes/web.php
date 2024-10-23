@@ -35,4 +35,6 @@ Route::get('/update_product/{id}', [AdminController::class,'update_product']);
 
 Route::put('/update_product_vt/{id}', [AdminController::class,'updateProduct']);
 
+Route::get('/product_detail/{id}', [HomeController::class,'getProduct']);
+
 

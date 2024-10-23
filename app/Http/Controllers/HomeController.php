@@ -12,8 +12,11 @@ use App\Models\Product;
 class HomeController extends Controller
 {
     public function index(){
-        $products=Product::all();
-        return view('home.userpage',compact('products'));
+        $products=Product::paginate(3);
+        $tshirt=Product::where('category','tshirt')->get();
+        $latestProducts = Product::orderBy('created_at', 'desc')->paginate(3);
+        
+        return view('home.userpage',compact('latestProducts','products','tshirt'));
     }
     public function redirect(){
         $userType=Auth::user()->userType;
@@ -23,5 +26,9 @@ class HomeController extends Controller
         }else{
             return view('home.userpage',compact('products'));
         }
+    }
+    public function getProduct($id){
+        $product=Product::find($id);
+        return view('home.productDetail',compact('product'));
     }
 }
