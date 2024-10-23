@@ -21,6 +21,20 @@
   <!-- main css -->
   <link rel="stylesheet" href="home/css/style.css" />
   <link rel="stylesheet" href="home/css/responsive.css" />
+  <style>
+    .inputStyle{
+      border-radius: 20px;
+      border: 1px solid #2d9fd9;
+    width: 50px;
+    border-radius: 5Opx;
+    outline:none;
+    color: #2a2a2a;
+    border:none;
+    }
+    input:focus, textarea:focus, select:focus {
+  outline: none;
+}
+  </style>
 </head>
 
 <body>

@@ -20,12 +20,15 @@
                 <a href="{{url('product_detail',$product->id)}}">
                   <i class="ti-eye"></i>
                 </a>
-                <a href="#">
-                  <i class="ti-heart"></i>
-                </a>
-                <a href="#">
-                  <i class="ti-shopping-cart"></i>
-                </a>
+  
+                <form action="{{url('add_cart',$product->id)}}" method="POST" style="display:inline-block;">
+                  @csrf
+                  @METHOD('POST')
+                  <a href="#" onclick="event.preventDefault(); this.closest('form').submit();" style="text-decoration: none;">
+                       <i class="ti-shopping-cart"></i>
+                  </a>
+                  <input type="number" min="1" name="quantity" value="1" class="inputStyle">
+                </form>
               </div>
             </div>
             <div class="product-btm">
@@ -33,15 +36,23 @@
                 <h4>{{$product->title}}</h4>
               </a>
               <div class="mt-3">
-                <span class="mr-4">${{$product->price - $product->discount}}</span>
+              @if($product->discount)
+                <span class="mr-4">
+                    ${{$product->discount}}
+                </span>
                 <del>${{$product->price}}</del>
+                @else
+                    <span>
+                        ${{$product->price}}
+                    </span>
+                @endif
               </div>
             </div>
           </div>
         </div>
         @endforeach
 
-    {!!$latestProducts->appends(Request::all())->links()!!}
+    {!!$latestProducts->withQueryString()->links('pagination::bootstrap-5')!!}
 
 
       </div>

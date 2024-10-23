@@ -20295,7 +20295,8 @@ div.tagsinput {
 .auth .brand-logo {
   margin-bottom: 2rem; }
   .auth .brand-logo img {
-    width: 150px; }
+    width: 150px;
+   }
 
 .auth form .auth-form-btn {
   height: 50px;

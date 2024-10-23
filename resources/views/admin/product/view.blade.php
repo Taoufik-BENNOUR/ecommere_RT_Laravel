@@ -60,6 +60,7 @@
                     <td >Description</td>
                     <td>Quantity</td>
                     <td>Price</td>
+                    <td>Discount Price</td>
                     <td>Category</td>
                     <td>Image</td>
                     <td>Action</td>
@@ -72,6 +73,8 @@
                     <td>{{ $product->title }}</td>
                     <td style="width:300px"><p class="description-column"> {{ $product->description }}</p></td>
                     <td>{{ $product->quantity }}</td>
+                    <td>{{ $product->price }}</td>
+                    <td>{{ $product->discount }}</td>
                     <td>{{ $product->price }}</td>
                     <td>{{ $product->category }}</td>
                     <td ><img src="product/{{ $product->image }}" alt="" style="width: 100px; height: auto;" ></td>

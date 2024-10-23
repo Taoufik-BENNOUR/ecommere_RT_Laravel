@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <base href="/public">
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -62,8 +63,9 @@
             <h2>Update Product</h2>
 
           </div>
-
-          <div class="col-8 grid-margin stretch-card mx-auto">
+      <div class="row">
+        
+      <div class="col col-lg-8 grid-margin stretch-card mx-auto">
             <div class="card">
               <div class="card-body">
                 <h4 class="card-title">Update product form </h4>
@@ -124,6 +126,11 @@
               </div>
             </div>
           </div>
+          <div class="col col-lg-4">
+            <h3>Displayed image</h3>
+            <img src="product/{{ $product->image }}">
+          </div>
+      </div>
         </div>
       </div>
       <!-- main-panel ends -->

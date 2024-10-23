@@ -60,7 +60,15 @@
                   <tr>
                     <td>{{ $category->id }}</td>
                     <td>{{ $category->category_name }}</td>
-                    <td><a onclick="return confirm('Are You Sure To Delete')" href="{{url('delete_category',$category->id)}}"><i class="mdi mdi-delete-forever" style="font-size:24px;color:red;cursor:pointer"></i></a></td>
+                     <td>
+                    <form action="{{ url('delete_category', $category->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are You Sure You Want To Delete?');">
+                      @csrf
+                      @method('DELETE')
+                      <button type="submit" style="border: none; background: none; cursor: pointer;">
+                          <i class="mdi mdi-delete-forever" style="font-size:24px;color:red;"></i>
+                      </button>
+                  </form>
+                    </td>
                   </tr>
                 @endforeach
                   

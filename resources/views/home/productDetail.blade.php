@@ -121,9 +121,12 @@
           <div class="col-lg-5 offset-lg-1">
             <div class="s_product_text">
               <h3>{{$product->title}}</h3>
-              <h2>${{$product->price-$product->discount}}</h2>
-              <del>${{$product->discount}}</del>
-
+              @if($product->discount)
+              <h2>${{$product->discount}}</h2>
+              <del>${{$product->price}}</del>
+              @else
+              <h2>${{$product->price}}</h2>
+              @endif
               <ul class="list">
                 <li>
                   <a class="active" href="#">
@@ -138,15 +141,18 @@
               {{$product->description}}
               </p>
               <div class="product_count">
+              <form action="{{url('add_cart',$product->id)}}" method="POST" style="display:inline-block;">
+
                 <label for="qty">Quantity:</label>
                 <input
                   type="text"
-                  name="qty"
+                  name="quantity"
                   id="sst"
                   maxlength="12"
                   value="1"
                   title="Quantity:"
                   class="input-text qty"
+                  min="1"
                 />
                 <button
                   onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
@@ -164,15 +170,20 @@
                 </button>
               </div>
               <div class="card_area">
-                <a class="main_btn" href="#">Add to Cart</a>
-                <a class="icon_btn" href="#">
-                  <i class="lnr lnr lnr-diamond"></i>
-                </a>
-                <a class="icon_btn" href="#">
-                  <i class="lnr lnr lnr-heart"></i>
-                </a>
-              </div>
+                    @csrf
+                    @METHOD('POST')
+    
+                    <button class="main_btn" href="#">Add to Cart</button>
+                 
+                  <a class="icon_btn" href="#">
+                    <i class="lnr lnr lnr-diamond"></i>
+                  </a>
+                  <a class="icon_btn" href="#">
+                    <i class="lnr lnr lnr-heart"></i>
+                  </a>
+                </div>
             </div>
+            </form>
           </div>
         </div>
       </div>
