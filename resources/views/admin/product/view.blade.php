@@ -75,13 +75,12 @@
                     <td>{{ $product->quantity }}</td>
                     <td>{{ $product->price }}</td>
                     <td>{{ $product->discount }}</td>
-                    <td>{{ $product->price }}</td>
                     <td>{{ $product->category }}</td>
                     <td ><img src="product/{{ $product->image }}" alt="" style="width: 100px; height: auto;" ></td>
                     <td>
                       <a onclick="return confirm('Are You Sure To Delete')" href="{{url('delete_product',$product->id)}}"><i class="mdi mdi-delete-forever" style="font-size:24px;color:red;cursor:pointer"></i></a>
-                    </td>
-                    <td>                    <a href="{{url('update_product',$product->id)}}"><i  class="mdi mdi-pencil-box-outline" style="font-size:24px;color:green;cursor:pointer"></i></a>
+                      <a href="{{url('update_product',$product->id)}}"><i  class="mdi mdi-pencil-box-outline" style="font-size:24px;color:green;cursor:pointer"></i></a>
+
                     </td>
                   </tr>
                 @endforeach

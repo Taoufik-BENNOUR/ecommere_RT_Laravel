@@ -37,7 +37,7 @@
     'linkTitle' => 'Cart'
         ])
     <!--================End Home Banner Area =================-->
-
+@csrf
     <!--================Cart Area =================-->
     <section class="cart_area">
       <div class="container">
@@ -103,7 +103,13 @@
                     <h5>{{$cart_info->price}}</h5>
                   </td>
                   <td>
-                    <h5><a href=""><i class="fa fa-remove" style="color:red;font-size:16px"></i></a></h5>
+                    <form action="{{url('delete_cart',$cart_info->id)}}" method="POST">
+                    @csrf
+                    @METHOD('delete')
+                    <button type="submit">
+                            <i class="fa fa-remove" style="color:red;font-size:16px"></i>
+                        </button>
+                    </form>             
                   </td>
                 </tr>
 
