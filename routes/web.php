@@ -39,4 +39,6 @@ Route::get('/product_detail/{id}', [HomeController::class,'getProduct']);
 
 Route::post('/add_cart/{id}', [HomeController::class,'add_cart']);
 
+Route::get('/cart', [HomeController::class,'view_cart']);
+
 

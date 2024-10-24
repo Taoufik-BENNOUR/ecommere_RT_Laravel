@@ -21,11 +21,11 @@ class HomeController extends Controller
     }
     public function redirect(){
         $userType=Auth::user()->userType;
-        $products=Product::all();
+
         if($userType=='1'){
             return view('admin.home');
         }else{
-            return view('home.userpage',compact('products'));
+            return redirect('/');
         }
     }
     public function getProduct($id){
@@ -37,8 +37,20 @@ class HomeController extends Controller
         if(Auth::id()){
             $user=Auth::user();
             $product=Product::find($id);
-            $cart=new Cart;
+            $price = $product->discount != null ? $product->discount : $product->price;
+            $totalPrice = $price * $request->quantity;
 
+            $cart = Cart::where('user_id', $user->id)
+            ->where('product_id', $product->id)
+            ->first();
+
+            
+            if($cart){
+                $cart->quantity += $request->quantity; 
+                $cart->price = $price * $cart->quantity; 
+                $cart->save();
+            }else{
+            $cart=new Cart;
             $cart->user_id=$user->id;
             $cart->name=$user->name;
             $cart->email=$user->email;
@@ -47,18 +59,25 @@ class HomeController extends Controller
 
             $cart->product_id=$product->id;
             $cart->product_title=$product->title;
-            if($product->discount!=null){
-                $cart->price=$product->discount * $request->quantity;
-            }else{
-                $cart->price=$product->price * $request->quantity;
-            }
+            $cart->price=$totalPrice;
             $cart->quantity=$request->quantity;
             $cart->image=$product->image;
             $cart->save();
+            }
             return redirect()->back();
 
         }else{
             return redirect('login');
         }
+    }
+    public function view_cart(){
+        if(Auth::id()){
+            $user=Auth::user()->id;
+            $cart=Cart::where('user_id',$user)->get();
+            return view('home.cart',compact('cart'));
+        }else{
+            return redirect('login');
+        }
+
     }
 }
