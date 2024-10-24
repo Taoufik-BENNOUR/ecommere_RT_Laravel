@@ -44,4 +44,6 @@ Route::get('/cart', [HomeController::class,'view_cart']);
 
 Route::delete('/delete_cart/{id}', [HomeController::class,'delete_cart']);
 
+Route::get('/checkout', [HomeController::class,'view_checkout']);
+
 

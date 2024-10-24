@@ -193,7 +193,7 @@
                   <td>
                     <div class="checkout_btn_inner">
                       <a class="gray_btn" href="{{url('/')}}">Continue Shopping</a>
-                      <a class="main_btn" href="#">Proceed to checkout</a>
+                      <a class="main_btn" href="{{url('/checkout')}}">Proceed to checkout</a>
                     </div>
                   </td>
                 </tr>

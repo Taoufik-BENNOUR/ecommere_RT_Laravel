@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Cart;
+use App\Models\Order;
+use App\Models\OrderItem;
 
 class HomeController extends Controller
 {
@@ -84,5 +86,52 @@ class HomeController extends Controller
        $cart=Cart::find($id);
        $cart->delete();
        return redirect()->back();
+    }
+
+    public function view_checkout(){
+        if(Auth::id()){
+            $user=Auth::user();
+            $cartItems =Cart::where('user_id',$user->id)->get();
+            if ($cartItems->isEmpty()) {
+                return redirect()->back()->with('message', 'Your cart is empty.');
+            }
+                 $order=new Order;
+                $order->user_id=$user->id;
+                $order->payment_status = "Cash on delivery";
+                $order->delivery_status = "processing";
+                $totalPrice = 0;
+                $order->save();
+
+                foreach ($cartItems as $cartItem) {
+                    
+                    $totalPrice += $cartItem->price * $cartItem->quantity;
+        
+                    $orderItem = new OrderItem;
+
+                    $orderItem->order_id = $order->id;
+                    $orderItem->user_id = $cartItem->user_id;
+                    $orderItem->product_id = $cartItem->product_id;
+
+                    $orderItem->name = $cartItem->name;
+                    $orderItem->email = $cartItem->email;
+                    $orderItem->address = $cartItem->address;
+                    $orderItem->phone = $cartItem->phone;
+
+                    $orderItem->product_title = $cartItem->product_title;
+                    $orderItem->quantity = $cartItem->quantity;
+                    $orderItem->price = $cartItem->price; 
+                    $orderItem->save();
+        
+                    $order->items()->save($orderItem);
+                }
+                $order->total_price = $totalPrice;
+
+                $order->save();
+                Cart::where('user_id', $user->id)->delete();
+
+            return view('home.checkout');
+        }else{
+            return redirect('login');
+        }
     }
 }
