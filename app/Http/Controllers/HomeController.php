@@ -202,7 +202,7 @@ class HomeController extends Controller
                         Cart::where('user_id', $user->id)->delete();
                     }
                 Session::flash('success', 'Payment successful!');
-                return redirect->back();
+                return redirect()->back();
             } catch (\Stripe\Exception\CardException $e) {
                 // Handle card errors
                 Session::flash('error', $e->getMessage());
