@@ -12,6 +12,8 @@ use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderItem;
 
+use Session;
+use Stripe;
 class HomeController extends Controller
 {
     public function index(){
@@ -92,6 +94,16 @@ class HomeController extends Controller
         if(Auth::id()){
             $user=Auth::user();
             $cartItems =Cart::where('user_id',$user->id)->get();
+
+            return view('home.checkout',compact('cartItems'));
+        }else{
+            return redirect('login');
+        }
+    }
+    public function command(Request $request){
+        if(Auth::id()){
+            $user=Auth::user();
+            $cartItems =Cart::where('user_id',$user->id)->get();
             if ($cartItems->isEmpty()) {
                 return redirect()->back()->with('message', 'Your cart is empty.');
             }
@@ -104,7 +116,7 @@ class HomeController extends Controller
 
                 foreach ($cartItems as $cartItem) {
                     
-                    $totalPrice += $cartItem->price * $cartItem->quantity;
+                    $totalPrice += $cartItem->price;
         
                     $orderItem = new OrderItem;
 
@@ -129,9 +141,77 @@ class HomeController extends Controller
                 $order->save();
                 Cart::where('user_id', $user->id)->delete();
 
-            return view('home.checkout');
+            return redirect()->back();
+            
         }else{
             return redirect('login');
         }
     }
+            public function stripe($total){
+                if($total==0) return redirect()->back();
+                return view('home.stripe',compact('total'));
+            }
+        public function stripePost(Request $request,$total){
+    
+            try {
+                Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+                Stripe\Charge::create([
+                    "amount" => $total * 100,  // Amount in cents
+                    "currency" => "usd",
+                    "source" => $request->stripeToken,
+                    "description" => "Test payment"
+                ]);
+                if(Auth::id()){
+                    $user=Auth::user();
+                    $cartItems =Cart::where('user_id',$user->id)->get();
+                    if ($cartItems->isEmpty()) {
+                        return redirect()->back()->with('message', 'Your cart is empty.');
+                    }
+                         $order=new Order;
+                        $order->user_id=$user->id;
+                        $order->payment_status = "Paid";
+                        $order->delivery_status = "processing";
+                        $totalPrice = 0;
+                        $order->save();
+        
+                        foreach ($cartItems as $cartItem) {
+                            
+                            $totalPrice += $cartItem->price;
+                
+                            $orderItem = new OrderItem;
+        
+                            $orderItem->order_id = $order->id;
+                            $orderItem->user_id = $cartItem->user_id;
+                            $orderItem->product_id = $cartItem->product_id;
+        
+                            $orderItem->name = $cartItem->name;
+                            $orderItem->email = $cartItem->email;
+                            $orderItem->address = $cartItem->address;
+                            $orderItem->phone = $cartItem->phone;
+        
+                            $orderItem->product_title = $cartItem->product_title;
+                            $orderItem->quantity = $cartItem->quantity;
+                            $orderItem->price = $cartItem->price; 
+                            $orderItem->save();
+                
+                            $order->items()->save($orderItem);
+                        }
+                        $order->total_price = $totalPrice;
+        
+                        $order->save();
+                        Cart::where('user_id', $user->id)->delete();
+                    }
+                Session::flash('success', 'Payment successful!');
+                return redirect->back();
+            } catch (\Stripe\Exception\CardException $e) {
+                // Handle card errors
+                Session::flash('error', $e->getMessage());
+                return back()->withErrors(['payment' => "Your card was declined."]);
+            } catch (\Exception $e) {
+                // Handle other errors
+                Session::flash('error', 'An error occurred while processing your payment. Please try again.');
+                return back()->withErrors(['payment' => 'An error occurred.']);
+            }
+    }
+
 }

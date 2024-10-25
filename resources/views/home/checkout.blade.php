@@ -22,6 +22,16 @@
     <!-- main css -->
     <link rel="stylesheet" href="home/css/style.css" />
     <link rel="stylesheet" href="home/css/responsive.css" />
+    <style>
+      .orderSum{
+        display:flex;
+        justify-content:space-between;
+      }
+      .orderSum span:first-child{
+        width: 100px;
+      }
+
+    </style>
   </head>
 
   <body>
@@ -42,69 +52,7 @@
     <!--================Checkout Area =================-->
     <section class="checkout_area section_gap">
       <div class="container">
-        <div class="returning_customer">
-          <div class="check_title">
-            <h2>
-              Returning Customer?
-              <a href="#">Click here to login</a>
-            </h2>
-          </div>
-          <p>
-            If you have shopped with us before, please enter your details in the
-            boxes below. If you are a new customer, please proceed to the
-            Billing & Shipping section.
-          </p>
-          <form
-            class="row contact_form"
-            action="#"
-            method="post"
-            novalidate="novalidate"
-          >
-            <div class="col-md-6 form-group p_star">
-              <input
-                type="text"
-                class="form-control"
-                id="name"
-                name="name"
-                value=" "
-              />
-              <span
-                class="placeholder"
-                data-placeholder="Username or Email"
-              ></span>
-            </div>
-            <div class="col-md-6 form-group p_star">
-              <input
-                type="password"
-                class="form-control"
-                id="password"
-                name="password"
-                value=""
-              />
-              <span class="placeholder" data-placeholder="Password"></span>
-            </div>
-            <div class="col-md-12 form-group">
-              <button type="submit" value="submit" class="btn submit_btn">
-                Send Message
-              </button>
-              <div class="creat_account">
-                <input type="checkbox" id="f-option" name="selector" />
-                <label for="f-option">Remember me</label>
-              </div>
-              <a class="lost_pass" href="#">Lost your password?</a>
-            </div>
-          </form>
-        </div>
-        <div class="cupon_area">
-          <div class="check_title">
-            <h2>
-              Have a coupon?
-              <a href="#">Click here to enter your code</a>
-            </h2>
-          </div>
-          <input type="text" placeholder="Enter coupon code" />
-          <a class="tp_btn" href="#">Apply Coupon</a>
-        </div>
+
         <div class="billing_details">
           <div class="row">
             <div class="col-lg-8">
@@ -121,11 +69,9 @@
                     class="form-control"
                     id="first"
                     name="name"
+                    value="{{Auth::user()->name}}"
                   />
-                  <span
-                    class="placeholder"
-                    data-placeholder="First name"
-                  ></span>
+     
                 </div>
                 <div class="col-md-6 form-group p_star">
                   <input
@@ -133,17 +79,10 @@
                     class="form-control"
                     id="last"
                     name="name"
+                    placeholder="name"
                   />
-                  <span class="placeholder" data-placeholder="Last name"></span>
                 </div>
                 <div class="col-md-12 form-group">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="company"
-                    name="company"
-                    placeholder="Company name"
-                  />
                 </div>
                 <div class="col-md-6 form-group p_star">
                   <input
@@ -151,11 +90,9 @@
                     class="form-control"
                     id="number"
                     name="number"
+                    value="{{Auth::user()->phone}}"
+                    placeholder="Phone number"
                   />
-                  <span
-                    class="placeholder"
-                    data-placeholder="Phone number"
-                  ></span>
                 </div>
                 <div class="col-md-6 form-group p_star">
                   <input
@@ -163,18 +100,9 @@
                     class="form-control"
                     id="email"
                     name="compemailany"
+                    value="{{Auth::user()->email}}"
+                    placeholder="email"
                   />
-                  <span
-                    class="placeholder"
-                    data-placeholder="Email Address"
-                  ></span>
-                </div>
-                <div class="col-md-12 form-group p_star">
-                  <select class="country_select">
-                    <option value="1">Country</option>
-                    <option value="2">Country</option>
-                    <option value="4">Country</option>
-                  </select>
                 </div>
                 <div class="col-md-12 form-group p_star">
                   <input
@@ -182,11 +110,9 @@
                     class="form-control"
                     id="add1"
                     name="add1"
+                    value="{{Auth::user()->address}}"
+                    placeholder="Address line 01"
                   />
-                  <span
-                    class="placeholder"
-                    data-placeholder="Address line 01"
-                  ></span>
                 </div>
                 <div class="col-md-12 form-group p_star">
                   <input
@@ -257,33 +183,26 @@
                       <span>Total</span>
                     </a>
                   </li>
-                  <li>
-                    <a href="#"
-                      >Fresh Blackberry
-                      <span class="middle">x 02</span>
-                      <span class="last">$720.00</span>
-                    </a>
+                  @foreach($cartItems as $cart)
+                  <li class="orderSum">
+        
+                      <span>{{$cart->product_title}}</span>
+                      <span class="">x {{$cart->quantity}}</span>
+                      <span class="">${{$cart->price}}</span>
                   </li>
-                  <li>
-                    <a href="#"
-                      >Fresh Tomatoes
-                      <span class="middle">x 02</span>
-                      <span class="last">$720.00</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#"
-                      >Fresh Brocoli
-                      <span class="middle">x 02</span>
-                      <span class="last">$720.00</span>
-                    </a>
-                  </li>
+                  @endforeach
+                  <?php
+                    $total=0;
+                    foreach($cartItems as $cart_info){
+                        $total+=$cart_info->price;
+                    }
+                    ?>
                 </ul>
                 <ul class="list list_2">
                   <li>
                     <a href="#"
                       >Subtotal
-                      <span>$2160.00</span>
+                      <span>$<?= $total;?></span>
                     </a>
                   </li>
                   <li>
@@ -295,14 +214,14 @@
                   <li>
                     <a href="#"
                       >Total
-                      <span>$2210.00</span>
+                      <span>$<?= $total;?></span>
                     </a>
                   </li>
                 </ul>
                 <div class="payment_item">
                   <div class="radion_btn">
-                    <input type="radio" id="f-option5" name="selector" />
-                    <label for="f-option5">Check payments</label>
+                    <input type="radio" id="f-option5" name="payment_method" value="cash"/>
+                    <label for="f-option5">Pay ON Delivery</label>
                     <div class="check"></div>
                   </div>
                   <p>
@@ -312,14 +231,13 @@
                 </div>
                 <div class="payment_item active">
                   <div class="radion_btn">
-                    <input type="radio" id="f-option6" name="selector" />
-                    <label for="f-option6">Paypal </label>
+                    <input type="radio" id="f-option6" name="payment_method" value="credit_card"/>
+                    <label for="f-option6">Credit Card </label>
                     <img src="img/product/single-product/card.jpg" alt="" />
                     <div class="check"></div>
                   </div>
                   <p>
-                    Please send a check to Store Name, Store Street, Store Town,
-                    Store State / County, Store Postcode.
+                    Please send a check your CC
                   </p>
                 </div>
                 <div class="creat_account">
@@ -327,7 +245,16 @@
                   <label for="f-option4">I’ve read and accept the </label>
                   <a href="#">terms & conditions*</a>
                 </div>
-                <a class="main_btn" href="#">Proceed to Paypal</a>
+                <div id="payment-container">
+                  
+                  <form action="{{url('command')}}" method="POST" id="payment-form" style="display:none;"> 
+                    @csrf
+                    <button type="submit" class="main_btn" >Command</button>
+                  </form>
+                  <a id="alternative-link" style="display:none;width:max-content" class="main_btn" href="{{ url('stripe_payment',$total) }}">Proceed to Pay</a>
+                
+          </div>
+
               </div>
             </div>
           </div>
@@ -337,76 +264,7 @@
     <!--================End Checkout Area =================-->
 
     <!--================ start footer Area  =================-->
-    <footer class="footer-area section_gap">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-2 col-md-6 single-footer-widget">
-            <h4>Top Products</h4>
-            <ul>
-              <li><a href="#">Managed Website</a></li>
-              <li><a href="#">Manage Reputation</a></li>
-              <li><a href="#">Power Tools</a></li>
-              <li><a href="#">Marketing Service</a></li>
-            </ul>
-          </div>
-          <div class="col-lg-2 col-md-6 single-footer-widget">
-            <h4>Quick Links</h4>
-            <ul>
-              <li><a href="#">Jobs</a></li>
-              <li><a href="#">Brand Assets</a></li>
-              <li><a href="#">Investor Relations</a></li>
-              <li><a href="#">Terms of Service</a></li>
-            </ul>
-          </div>
-          <div class="col-lg-2 col-md-6 single-footer-widget">
-            <h4>Features</h4>
-            <ul>
-              <li><a href="#">Jobs</a></li>
-              <li><a href="#">Brand Assets</a></li>
-              <li><a href="#">Investor Relations</a></li>
-              <li><a href="#">Terms of Service</a></li>
-            </ul>
-          </div>
-          <div class="col-lg-2 col-md-6 single-footer-widget">
-            <h4>Resources</h4>
-            <ul>
-              <li><a href="#">Guides</a></li>
-              <li><a href="#">Research</a></li>
-              <li><a href="#">Experts</a></li>
-              <li><a href="#">Agencies</a></li>
-            </ul>
-          </div>
-          <div class="col-lg-4 col-md-6 single-footer-widget">
-            <h4>Newsletter</h4>
-            <p>You can trust us. we only send promo offers,</p>
-            <div class="form-wrap" id="mc_embed_signup">
-              <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
-                method="get" class="form-inline">
-                <input class="form-control" name="EMAIL" placeholder="Your Email Address" onfocus="this.placeholder = ''"
-                  onblur="this.placeholder = 'Your Email Address '" required="" type="email">
-                <button class="click-btn btn btn-default">Subscribe</button>
-                <div style="position: absolute; left: -5000px;">
-                  <input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
-                </div>
-  
-                <div class="info"></div>
-              </form>
-            </div>
-          </div>
-        </div>
-        <div class="footer-bottom row align-items-center">
-          <p class="footer-text m-0 col-lg-8 col-md-12"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-          <div class="col-lg-4 col-md-12 footer-social">
-            <a href="#"><i class="fa fa-facebook"></i></a>
-            <a href="#"><i class="fa fa-twitter"></i></a>
-            <a href="#"><i class="fa fa-dribbble"></i></a>
-            <a href="#"><i class="fa fa-behance"></i></a>
-          </div>
-        </div>
-      </div>
-    </footer>
+      @include('home.footer')
     <!--================ End footer Area  =================-->
 
     <!-- Optional JavaScript -->
@@ -426,5 +284,24 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="vendors/counter-up/jquery.waypoints.min.js"></script>
     <script src="vendors/counter-up/jquery.counterup.js"></script>
     <script src="js/theme.js"></script>
+    <script>
+    
+    document.querySelectorAll('input[name="payment_method"]').forEach(function(el) {
+    el.addEventListener('change', function() {
+        const cash = document.getElementById('payment-form');
+        const creditcard = document.getElementById('alternative-link');
+
+        if (this.value === 'credit_card') {
+            cash.style.display = 'none'; // Show the form
+            creditcard.style.display = 'block';  // Hide the link
+        } else {
+            cash.style.display = 'block';   // Hide the form
+            creditcard.style.display = 'none';  // Show the link
+        }
+        document.querySelector('input[name="payment_method"]:checked').dispatchEvent(new Event('change'));
+
+    });
+});
+</script>
   </body>
 </html>
