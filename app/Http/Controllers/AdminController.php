@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\User;
+use Illuminate\Support\Str;
 
 use Barryvdh\DomPDF\Facade\Pdf;
 class AdminController extends Controller
@@ -32,7 +33,8 @@ class AdminController extends Controller
 
     public function view_product(){
         $products = Product::all();
-        return view('admin.product.view',compact('products'));
+        $categories=Category::all();
+        return view('admin.product.view',compact('products','categories'));
     }
     public function add_product_page(){
         $categories=Category::all();
@@ -111,6 +113,22 @@ class AdminController extends Controller
  
             $pdf=Pdf::loadView('admin.pdf',compact('order','order_detail','user'));
             return $pdf->download("order_detail_$id.pdf");
-            // return view('admin.pdf',compact('order','order_detail','user'));
+    }
+    public function searchProduct(Request $request){
+        $categories=Category::all();
+        $query = $request->input('search');
+        $category = $request->input('category');
+    
+        $products = Product::query();
+        if ($query) {
+            $products->where('title', 'LIKE', "%$query%");
+        }
+
+        if ($category) {
+            $products->Where('category', 'LIKE', "%$category%");
+        }
+        $products  = $products->get();
+
+        return view("admin.product.view",compact("products","categories",));
     }
 }
