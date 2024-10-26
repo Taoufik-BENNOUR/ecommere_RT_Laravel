@@ -52,7 +52,9 @@
         </div>
         @endforeach
 
-    {!!$latestProducts->withQueryString()->links('pagination::bootstrap-5')!!}
+      <div class="d-flex justify-content-center mx-auto">
+      {!!$latestProducts->withQueryString()->links('pagination::bootstrap-5')!!}
+      </div>
 
 
       </div>
