@@ -23,6 +23,8 @@ Route::middleware(['auth:sanctum',AdminMiddleware::class])->group(function () {
     Route::delete('/delete_product/{id}', [AdminController::class,'delete_product']);
     Route::get('/update_product/{id}', [AdminController::class,'update_product']);
     Route::put('/update_product_vt/{id}', [AdminController::class,'updateProduct']);
+    Route::get('/orders', [AdminController::class,'getOrders']);
+    Route::get('/order_detail/{id}', [AdminController::class,'getOrderDetail']);
 
 });
 

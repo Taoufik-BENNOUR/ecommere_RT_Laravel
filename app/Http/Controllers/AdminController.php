@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Order;
+use App\Models\OrderItem;
 
 class AdminController extends Controller
 {
@@ -77,5 +79,14 @@ class AdminController extends Controller
         $product->save();
         return redirect()->back()->with('message',value: 'Product Updated Successfully');
 
+    }
+    public function getOrders(){
+        $orders=Order::all();
+        return view('admin.order.orders',compact('orders'));
+    }
+    public function getOrderDetail($id){
+        
+        $order_detail=OrderItem::where('order_id', $id)->get();
+        return view('admin.order.detail',compact('order_detail', 'id'));
     }
 }
