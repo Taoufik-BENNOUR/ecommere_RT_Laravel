@@ -128,7 +128,7 @@
           </div>
           <div class="col col-lg-4">
             <h3>Displayed image</h3>
-            <img src="product/{{ $product->image }}">
+            <img src="product/{{ $product->image }}" style="width:100%">
           </div>
       </div>
         </div>

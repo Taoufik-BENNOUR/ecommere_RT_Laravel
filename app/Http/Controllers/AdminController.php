@@ -32,7 +32,7 @@ class AdminController extends Controller
     }
 
     public function view_product(){
-        $products = Product::all();
+        $products = Product::paginate(6);
         $categories=Category::all();
         return view('admin.product.view',compact('products','categories'));
     }
@@ -49,7 +49,7 @@ class AdminController extends Controller
             $data->discount=$request->discount;
             $data->description=$request->description;
             $image=$request->image;
-            $imagename=time().'.'.$image->getClientOriginalExtension();
+            $imagename=time().$image->getClientOriginalName();
             $request->image->move('product',$imagename);
             $data->image=$imagename;
             $data->save();
@@ -76,7 +76,7 @@ class AdminController extends Controller
         $product->description = $request->input('description');
         if ($request->hasFile('image')) {
             $image=$request->image;
-            $imagename=time().'.'.$image->getClientOriginalExtension();
+            $imagename=time().$image->getClientOriginalName();
             $request->image->move('product',$imagename);
             $product->image=$imagename;
         }
@@ -127,7 +127,7 @@ class AdminController extends Controller
         if ($category) {
             $products->Where('category', 'LIKE', "%$category%");
         }
-        $products  = $products->get();
+        $products  = $products->paginate(6);
 
         return view("admin.product.view",compact("products","categories",));
     }

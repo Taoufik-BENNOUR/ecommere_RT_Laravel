@@ -4,6 +4,7 @@
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
+  <base href="/public">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Product Admin</title>
   <!-- plugins:css -->
@@ -15,6 +16,7 @@
   <link rel="stylesheet" href="admin/assets/vendors/flag-icon-css/css/flag-icon.min.css">
   <link rel="stylesheet" href="admin/assets/vendors/owl-carousel-2/owl.carousel.min.css">
   <link rel="stylesheet" href="admin/assets/vendors/owl-carousel-2/owl.theme.default.min.css">
+
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <!-- endinject -->
@@ -61,7 +63,7 @@
             @csrf
           </div>
           <div style="margin-bottom:10px">
-          <form action="{{url('view_product')}}" method="GET" class="form-inline mb-2 my- my-lg-0 d-none d-lg-flex align-items-center justify-content-center search">
+          <form action="{{url('search')}}" method="GET" class="form-inline mb-2 my- my-lg-0 d-none d-lg-flex align-items-center justify-content-center search">
             <input style="color:white" type="text" class="form-control" placeholder="Search products" name="search" aria-label="Search">
             <div class="form-group">
                         <select class="form-control" id="category" name="category"  style="color:white">
@@ -76,6 +78,7 @@
           </div>
           <table class="table table-dark">
             <tr>
+              <td>N*</td>
               <td>Id</td>
               <td>Title</td>
               <td>Description</td>
@@ -88,8 +91,9 @@
             </tr>
             <tbody>
 
-              @foreach($products as $product)
+              @foreach($products as $key =>$product)
           <tr>
+          <td>{{ $key+1 }}</td>
           <td>{{ $product->id }}</td>
           <td>{{ $product->title }}</td>
           <td style="width:300px">
@@ -109,12 +113,13 @@
           </td>
           </tr>
         @endforeach
-            <tbody>
+        
+        <tbody>
+              {!! $products->withQueryString()->links('pagination::bootstrap-5') !!}
 
 
           </table>
-
-        </div>
+          </div>
       </div>
       <!-- main-panel ends -->
     </div>

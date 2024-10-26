@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
 use App\Models\Product;
+use App\Models\Category;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderItem;
@@ -148,11 +149,16 @@ class HomeController extends Controller
         }
     }
             public function stripe($total){
-                if($total==0) return redirect()->back();
+                $user=Auth::user();
+                $cartItems =Cart::where('user_id',$user->id)->get();
+                if ($cartItems->isEmpty()) {
+                    return redirect('/');
+                }
                 return view('home.stripe',compact('total'));
             }
         public function stripePost(Request $request,$total){
-    
+
+               
             try {
                 Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
                 Stripe\Charge::create([
@@ -164,9 +170,7 @@ class HomeController extends Controller
                 if(Auth::id()){
                     $user=Auth::user();
                     $cartItems =Cart::where('user_id',$user->id)->get();
-                    if ($cartItems->isEmpty()) {
-                        return redirect()->back()->with('message', 'Your cart is empty.');
-                    }
+    
                          $order=new Order;
                         $order->user_id=$user->id;
                         $order->payment_status = "Paid";
@@ -213,5 +217,30 @@ class HomeController extends Controller
                 return back()->withErrors(['payment' => 'An error occurred.']);
             }
     }
+    public function getProducts(){
+        $products = Product::paginate(9);
+        $categories=Category::all();
+        return view('home.products',compact('products','categories'));
+    }
+    public function searchProduct(Request $request){
+        $categories=Category::all();
+        $query = $request->input('search');
+        $category =$request->category;
+        $minPrice = $request->input('min_price');
+        $maxPrice = $request->input('max_price');
 
+        $products = Product::query();
+        if ($query) {
+            $products->where('title', 'LIKE', "%$query%");
+        }
+
+        if ($category) {
+            $products->Where('category', 'LIKE', "%$category%");
+        }
+        if (!is_null($minPrice) && !is_null($maxPrice)) {
+            $products->whereBetween('price', [(int)$minPrice, (int)$maxPrice]);
+        }
+        $products = $products->orderBy('price', 'asc')->paginate(9);
+        return view("home.products",compact("products","categories",));
+    }
 }

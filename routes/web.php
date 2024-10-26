@@ -17,8 +17,9 @@ Route::get('redirect',action: [HomeController::class,'redirect']);
 Route::middleware(['auth:sanctum',AdminMiddleware::class])->group(function () {
     Route::get('/view_product',[AdminController::class,'view_product']);
     Route::get('/view_category',[AdminController::class,'view_category']);
+    Route::post('/add_category',[AdminController::class,'add_category']);
     Route::delete('/delete_category/{id}',[AdminController::class,'delete_category']);
-    Route::get('/add_product',[AdminController::class,'add_product_page']);
+    Route::get('/add_product',action: [AdminController::class,'add_product_page']);
     Route::post('/add_new_product', [AdminController::class,'add_product']);
     Route::delete('/delete_product/{id}', [AdminController::class,'delete_product']);
     Route::get('/update_product/{id}', [AdminController::class,'update_product']);
@@ -28,7 +29,7 @@ Route::middleware(['auth:sanctum',AdminMiddleware::class])->group(function () {
     Route::get('/confirm_delivery/{id}', [AdminController::class,'confirmDelivery']);
     Route::get('/confirm_payment/{id}',  [AdminController::class,'confirmPayment']);
     Route::get('/print/{id}',  [AdminController::class,'printOrder']);
-    Route::get('/view_product',  [AdminController::class,'searchProduct']);
+    Route::get('/search',  [AdminController::class,'searchProduct']);
 
 });
 
@@ -49,4 +50,7 @@ Route::get('stripe_payment/{total}', [HomeController::class,'stripe']);
 
 Route::post('stripe/{total}',[HomeController::class, 'stripePost'])->name('stripe.post');
 
+Route::get('/products',  [HomeController::class,'getProducts']);
+
+Route::get('/products',  [HomeController::class,'searchProduct']);
 
