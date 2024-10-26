@@ -64,8 +64,9 @@
                     <td>Order Date</td>
                     <td>Confirm Devlivery</td>
                     <td>Confirm Payment</td>
-                    <td>Confirm Delivery</td>
-                  </tr>
+                    <td>Confirm Delivery</td>  
+                    <td>Print</td>  
+               </tr>
                   <tbody>
 
                   @foreach($orders as $order)
@@ -81,6 +82,7 @@
                     </td>
                     <td><a class="btn btn-inverse-primary" href="{{url('confirm_payment',$order->id)}}">Confirm Payment</a></td>
                     <td><a class="btn btn-inverse-secondary" href="{{url('confirm_delivery',$order->id)}}">Confirm Delivery</a></td>
+                    <td><a href="{{url('print',$order->id)}}">Print</a></td>
                   </tr>
                 @endforeach
                 <tbody>

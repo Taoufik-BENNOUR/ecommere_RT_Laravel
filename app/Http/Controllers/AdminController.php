@@ -7,7 +7,9 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\User;
 
+use Barryvdh\DomPDF\Facade\Pdf;
 class AdminController extends Controller
 {
 
@@ -101,5 +103,14 @@ class AdminController extends Controller
         $order->payment_status="Paid";
         $order->save();
         return redirect()->back();
+    }
+    public function printOrder($id){
+        $order=Order::find($id);
+        $user=User::where("id",$order->user_id)->first();
+        $order_detail=OrderItem::where('order_id', $id)->get();
+ 
+            $pdf=Pdf::loadView('admin.pdf',compact('order','order_detail','user'));
+            return $pdf->download("order_detail_$id.pdf");
+            // return view('admin.pdf',compact('order','order_detail','user'));
     }
 }
