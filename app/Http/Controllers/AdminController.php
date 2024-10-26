@@ -89,4 +89,10 @@ class AdminController extends Controller
         $order_detail=OrderItem::where('order_id', $id)->get();
         return view('admin.order.detail',compact('order_detail', 'id'));
     }
+    public function confirmDelivery($id){
+        $order=Order::find($id);
+        $order->delivery_status="Delivered";
+        $order->save();
+        return redirect()->back();
+    }
 }

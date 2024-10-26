@@ -110,7 +110,7 @@ class HomeController extends Controller
                  $order=new Order;
                 $order->user_id=$user->id;
                 $order->payment_status = "Cash on delivery";
-                $order->delivery_status = "processing";
+                $order->delivery_status = "Processing";
                 $totalPrice = 0;
                 $order->save();
 
@@ -170,7 +170,7 @@ class HomeController extends Controller
                          $order=new Order;
                         $order->user_id=$user->id;
                         $order->payment_status = "Paid";
-                        $order->delivery_status = "processing";
+                        $order->delivery_status = "Processing";
                         $totalPrice = 0;
                         $order->save();
         

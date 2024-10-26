@@ -25,6 +25,8 @@ Route::middleware(['auth:sanctum',AdminMiddleware::class])->group(function () {
     Route::put('/update_product_vt/{id}', [AdminController::class,'updateProduct']);
     Route::get('/orders', [AdminController::class,'getOrders']);
     Route::get('/order_detail/{id}', [AdminController::class,'getOrderDetail']);
+    Route::get('/confirm_delivery/{id}', [AdminController::class,'confirmDelivery']);
+    
 
 });
 

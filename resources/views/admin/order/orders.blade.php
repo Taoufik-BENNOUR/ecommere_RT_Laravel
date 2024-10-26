@@ -61,6 +61,9 @@
                     <td>Payment status</td>
                     <td>Delivery status</td>
                     <td>Order Date</td>
+                    <td>Confirm Devlivery</td>
+                    <td>Confirm Payment</td>
+                    <td>Confirm Delivery</td>
                   </tr>
                   <tbody>
 
@@ -70,11 +73,13 @@
                     <td>{{ $order->user_id }}</td>
                     <td>{{ $order->total_price }}</td>
                     <td><label class='{{$order->payment_status =='Paid'?"badge badge-success":"badge badge-warning"}}'>{{ $order->payment_status }}</label></td>
-                    <td>{{ $order->delivery_status }}</td>
+                    <td><label class='{{Str::lower($order->delivery_status) =='processing'?"badge badge-danger":"badge badge-primary"}}'>{{ $order->delivery_status }}</label></td>
                     <td>{{ $order->created_at }}</td>
                     <td>
                       <a href="{{url('order_detail',$order->id)}}"><i  class="mdi mdi-eye" style="font-size:24px;color:green;cursor:pointer"></i></a>
                     </td>
+                    <td><a class="btn btn-inverse-primary" href="{{url('confirm_payment',$order->id)}}">Confirm Payment</a></td>
+                    <td><a class="btn btn-inverse-secondary" href="{{url('confirm_delivery',$order->id)}}">Confirm Delivery</a></td>
                   </tr>
                 @endforeach
                 <tbody>
