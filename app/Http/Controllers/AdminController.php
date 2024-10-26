@@ -95,4 +95,11 @@ class AdminController extends Controller
         $order->save();
         return redirect()->back();
     }
+    
+    public function confirmPayment($id){
+        $order=Order::find($id);
+        $order->payment_status="Paid";
+        $order->save();
+        return redirect()->back();
+    }
 }

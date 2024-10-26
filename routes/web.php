@@ -26,7 +26,7 @@ Route::middleware(['auth:sanctum',AdminMiddleware::class])->group(function () {
     Route::get('/orders', [AdminController::class,'getOrders']);
     Route::get('/order_detail/{id}', [AdminController::class,'getOrderDetail']);
     Route::get('/confirm_delivery/{id}', [AdminController::class,'confirmDelivery']);
-    
+    Route::get('/confirm_payment/{id}',  [AdminController::class,'confirmPayment']);
 
 });
 
