@@ -69,7 +69,6 @@
   <!--================ End Inspired Product Area =================-->
 
   <!--================ Start Blog Area =================-->
-  @include('home.blog')
 
   <!--================ End Blog Area =================-->
 

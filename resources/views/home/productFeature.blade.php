@@ -3,7 +3,7 @@
       <div class="row justify-content-center">
         <div class="col-lg-12">
           <div class="main_title">
-            <h2><span>Featured product</span></h2>
+            <h2><span>Products on discount</span></h2>
             <p>Bring called seed first of third give itself now ment</p>
           </div>
         </div>
@@ -15,7 +15,7 @@
         <div class="col-lg-4 col-md-6">
           <div class="single-product">
             <div class="product-img">
-              <img class="img-fluid w-100 align-items-center" src="product/{{$product->image}}" alt="" />
+              <img class="img-fluid w-100 align-items-center" style="height:450px;object-fit:cover;" src="product/{{$product->image}}" alt="" />
               <div class="p_icon">
                 <a href="{{url('product_detail',$product->id)}}">
                   <i class="ti-eye"></i>
