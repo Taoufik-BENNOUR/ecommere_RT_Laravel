@@ -1,26 +1,25 @@
-<section class="feature_product_area section_gap_bottom_custom">
+<section class="inspired_product_area section_gap_bottom_custom">
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-lg-12">
           <div class="main_title">
-            <h2><span>Products on discount</span></h2>
+            <h2><span>New products</span></h2>
             <p>Bring called seed first of third give itself now ment</p>
           </div>
         </div>
       </div>
 
-      <div class="row align-items-end">
-        @csrf
-        @foreach($discountProducts as $product)
-        <div class="col-lg-4 col-md-6">
+      <div class="row">
+        @foreach ($latestProducts as $product)
+        <div class="col-lg-3 col-md-6">
           <div class="single-product">
             <div class="product-img">
-              <img class="img-fluid w-100 align-items-center" style="height:400px;object-fit:cover;" src="product/{{$product->image}}" alt="" />
+              <img class="img-fluid w-100" style="height:200px;object-fit:cover;" src="/product/{{$product->image}}" alt="" />
               <div class="p_icon">
-                <a href="{{url('product_detail',$product->id)}}">
+                <a href="{{url('product_detail/'.$product->id)}}" target="_blank">
                   <i class="ti-eye"></i>
                 </a>
-  
+
                 <form action="{{url('add_cart',$product->id)}}" method="POST" style="display:inline-block;">
                   @csrf
                   @METHOD('POST')
@@ -36,27 +35,17 @@
                 <h4>{{$product->title}}</h4>
               </a>
               <div class="mt-3">
-              @if($product->discount)
-                <span class="mr-4">
-                    ${{$product->discount}}
-                </span>
-                <del>${{$product->price}}</del>
-                @else
-                    <span>
-                        ${{$product->price}}
-                    </span>
-                @endif
+               @if ($product->discount)
+               <span class="mr-4">${{$product->discount}}</span>
+               <del>${{$product->title}}</del>
+               @else
+               <span class="mr-4">${{$product->price}}</span>
+               @endif
               </div>
             </div>
           </div>
         </div>
         @endforeach
-
-      <div class="d-flex justify-content-center mx-auto">
-      {!!$discountProducts->withQueryString()->links('pagination::bootstrap-5')!!}
-      </div>
-
-
       </div>
     </div>
-</section>
+  </section>

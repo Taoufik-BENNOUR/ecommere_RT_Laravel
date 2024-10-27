@@ -12,7 +12,7 @@
           <div class="float-right">
             <ul class="right_side">
               <li>
-                <a href="tracking.html">
+                <a href="{{url('order_history')}}">
                   track order
                 </a>
               </li>

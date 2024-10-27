@@ -20,10 +20,11 @@ class HomeController extends Controller
 {
     public function index(){
         $products=Product::paginate(3);
-        $tshirt=Product::where('category','tshirt')->get();
-        $latestProducts = Product::orderBy('created_at', 'desc')->paginate(3);
+        $tshirt=Product::where('category','tshirt')->limit(2)->get();
+        $discountProducts = Product::where('discount','!=',null)->paginate(3);
+        $latestProducts = Product::orderBy('created_at', 'desc')->limit(8)->get();
         
-        return view('home.userpage',compact('latestProducts','products','tshirt'));
+        return view('home.userpage',compact('latestProducts','products','tshirt','discountProducts'));
     }
     public function redirect(){
         $userType=Auth::user()->userType;
@@ -277,5 +278,9 @@ class HomeController extends Controller
         }else{
             return redirect('login');
         }
+    }
+    public function getOrders(){
+        $orders = Order::where('user_id',Auth::user()->id)->orderBy('created_at','desc')->get();
+        return view('home.orders',compact('orders'));
     }
 }

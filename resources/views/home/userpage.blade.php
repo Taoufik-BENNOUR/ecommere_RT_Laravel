@@ -33,6 +33,10 @@
     }
     input:focus, textarea:focus, select:focus {
   outline: none;
+  
+}
+.single-product .product-img .p_icon{
+    padding:7px 0px !important;
 }
   </style>
 </head>
@@ -58,15 +62,15 @@
 
   <!--================ End Offer Area =================-->
 
-  <!--================ New Product Area =================-->
-  @include('home.productNew')
-
-  <!--================ End New Product Area =================-->
-
   <!--================ Inspired Product Area =================-->
   @include('home.productInspired')
 
   <!--================ End Inspired Product Area =================-->
+
+  <!--================ Latest Product Area =================-->
+  @include('home.productLatest')
+
+  <!--================ End Latest Product Area =================-->
 
   <!--================ Start Blog Area =================-->
 
