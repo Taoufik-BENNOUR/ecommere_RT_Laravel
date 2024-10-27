@@ -131,4 +131,16 @@ class AdminController extends Controller
 
         return view("admin.product.view",compact("products","categories",));
     }
+    public function getUsers(){
+        $users=User::all();
+        return view("admin.users",compact("users"));
+    }
+
+    public function searchUser(Request $request){
+        $users=User::where('name','LIkE',"%$request->search%")
+        ->orWhere('email','LIkE',"%$request->search%")
+        ->orWhere('address','LIkE',"%$request->search%")
+        ->get();
+        return view("admin.users",compact("users"));
+    }
 }
