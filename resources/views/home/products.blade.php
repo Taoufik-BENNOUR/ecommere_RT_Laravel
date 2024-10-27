@@ -7,7 +7,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <link rel="icon" href="home/img/favicon.png" type="image/png" />
-    <title>Eiser ecommerce</title>
+    <title>RT Products</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="home/css/bootstrap.css" />
     <link rel="stylesheet" href="home/vendors/linericon/style.css" />
@@ -81,8 +81,8 @@
                                             <li
                                                 class="{{ request('category') == $category->category_name ? 'active' : '' }}">
                                                 <a href="{{ url('/products?category=' . $category->category_name . '&search=' . request('search')) }}">
-                            {{ $category->category_name }}
-                        </a>
+                                            {{ $category->category_name }}
+                                        </a>
                                             </li>
                                         @endforeach
 
@@ -112,15 +112,15 @@
                 <div class="col-lg-9">
                     <div class="product_top_bar">
                         <div class="left_dorp">
-                            <select class="sorting">
-                                <option value="1">Default sorting</option>
-                                <option value="2">Default sorting 01</option>
-                                <option value="4">Default sorting 02</option>
+                            <select class="sorting" onchange="location = this.value;" >
+                                <option value="{{ url('/products?price=asc')}}" {{request('price') =='asc' ?"selected":"" }}>Price (asc)</option>
+                                <option value="{{ url('/products?price=desc')}}" {{request('price') =='desc' ?"selected":"" }}>Price (desc)</option>
+
                             </select>
-                            <select class="show">
-                                <option value="1">Show 12</option>
-                                <option value="2">Show 14</option>
-                                <option value="4">Show 16</option>
+                            <select class="show"  onchange="location = this.value;">
+                                <option value="{{ url('/products?show=6') }}" {{request('show') =='6' ?"selected":"" }}>Show 6</option>
+                                <option value="{{ url('/products?show=9') }}" {{request('show') =='9' ?"selected":"" }}>Show 9</option>
+                                <option value="{{ url('/products?show=12') }}" {{request('show') =='12' ?"selected":"" }}>Show 12</option>
                             </select>
                         </div>
                     </div>
@@ -131,7 +131,7 @@
                                 <div class="col-lg-4 col-md-6">
                                     <div class="single-product">
                                         <div class="product-img">
-                                            <img class="card-img" src="product/{{$product->image}}" alt="" />
+                                            <img class="card-img" src="product/{{$product->image}}" alt="" style="height:250px;object-fit:cover;" />
                                             <div class="p_icon" style="padding:0px;">
                                                 <a href="product_detail/{{$product->id}}">
                                                     <i class="ti-eye"></i>

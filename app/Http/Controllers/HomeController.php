@@ -249,7 +249,8 @@ class HomeController extends Controller
         $category =$request->category;
         $minPrice = $request->input('min_price');
         $maxPrice = $request->input('max_price');
-
+        $price = $request->price??'asc';
+        $show = $request->show??6;
         $products = Product::query();
         if ($query) {
             $products->where('title', 'LIKE', "%$query%");
@@ -258,10 +259,12 @@ class HomeController extends Controller
         if ($category) {
             $products->Where('category', 'LIKE', "%$category%");
         }
+
+    
         if (!is_null($minPrice) && !is_null($maxPrice)) {
             $products->whereBetween('price', [(int)$minPrice, (int)$maxPrice]);
         }
-        $products = $products->orderBy('price', 'asc')->paginate(9);
+        $products = $products->orderBy('price', $price)->paginate($show);
         return view("home.products",compact("products","categories",));
     }
     public function addComment(Request $request,$id){

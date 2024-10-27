@@ -97,9 +97,13 @@
                             <div class="block px-4 py-2 text-xs text-gray-400">
                                 {{ __('Manage Account') }}
                             </div>
-                            <div class="block px-4 py-2 text-xs text-gray-400">
-                                {{ __('Manage Account') }}
-                            </div>
+  
+                            @if(Auth::user()->userType==1)
+                            <x-dropdown-link href="{{ url('dashboard') }}">
+                                {{ __('Dashboard') }}
+                            </x-dropdown-link>
+
+                            @endif
                             <x-dropdown-link href="{{ route('profile.show') }}">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
