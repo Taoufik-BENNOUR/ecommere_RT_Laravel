@@ -12,6 +12,7 @@ use App\Models\Category;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Comment;
 
 use Session;
 use Stripe;
@@ -48,7 +49,8 @@ class HomeController extends Controller
     }
     public function getProduct($id){
         $product=Product::find($id);
-        return view('home.productDetail',compact('product'));
+        $comment=Comment::where("product_id",$id)->get();
+        return view('home.productDetail',compact('product','comment'));
     }
 
     public function add_cart(Request $request,$id){
@@ -259,5 +261,20 @@ class HomeController extends Controller
         }
         $products = $products->orderBy('price', 'asc')->paginate(9);
         return view("home.products",compact("products","categories",));
+    }
+    public function addComment(Request $request,$id){
+        if(Auth::id()){
+           $user=Auth::user();
+           $comment = new Comment();
+           $comment->user_id = $user->id;
+           $comment->product_id = $id;
+           $comment->name = $user->name;
+           $comment->rating = $request->rating;
+           $comment->comment = $request->message;
+           $comment->save();
+            return redirect()->back();
+        }else{
+            return redirect('login');
+        }
     }
 }

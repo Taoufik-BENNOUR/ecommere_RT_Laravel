@@ -54,3 +54,5 @@ Route::get('/products',  [HomeController::class,'getProducts']);
 
 Route::get('/products',  [HomeController::class,'searchProduct']);
 
+Route::post('/add_comment/{id}',  [HomeController::class,'addComment']);
+
