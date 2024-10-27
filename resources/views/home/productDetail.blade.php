@@ -22,21 +22,20 @@
   <link rel="stylesheet" href="{{ asset('home/css/style.css') }}" />
   <link rel="stylesheet" href="{{ asset('home/css/responsive.css') }}" />
   <style>
+    .list a {
+      text-decoration: none;
+      color: #ccc;
+      /* Unselected star color */
+    }
 
+    .list a i {
+      color: #ccc;
+      font-size: 24px;
+    }
 
-.list a {
-    text-decoration: none;
-    color: #ccc; /* Unselected star color */
-}
-
-.list a i {
-    color: #ccc; 
-    font-size: 24px; 
-}
-
-.list a.selected i {
-    color: #ffcc00;
-}
+    .list a.selected i {
+      color: #ffcc00;
+    }
   </style>
 </head>
 
@@ -373,14 +372,25 @@
                 <div class="col-6">
                   <div class="box_total">
                     <h5>Overall</h5>
-                    <h4>4.0</h4>
-                    <h6>(03 Reviews)</h6>
+                    @php
+                      $total = 0;
+                      $count = $comments->count();
+
+                      foreach ($comments as $comment) {
+                          $total += $comment->rating;
+                      }
+                      $average = $count > 0 ? $total / $count : 0; 
+                     @endphp
+                     <h4>{{number_format($average, 2)}}</h4>
+                    <h6>{{$comments->count()}} Review(s)</h6>
                   </div>
                 </div>
                 <div class="col-6">
                   <div class="rating_list">
-                    <h3>Based on 3 Reviews</h3>
+                    <h3>Based on {{$comments->count()}} Review(s)</h3>
                     <ul class="list">
+                    <progress  value="{{$rating5}}" max="{{$comments->count()}}"> </progress>
+
                       <li>
                         <a href="#">5 Star
                           <i class="fa fa-star"></i>
@@ -426,97 +436,52 @@
                 </div>
               </div>
               <div class="review_list">
-                <div class="review_item">
-                  <div class="media">
-                    <div class="d-flex">
-                      <img src="img/product/single-product/review-1.png" alt="" />
-                    </div>
-                    <div class="media-body">
-                      <h4>Blake Ruiz</h4>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                    </div>
-                  </div>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo
-                  </p>
-                </div>
-                <div class="review_item">
-                  <div class="media">
-                    <div class="d-flex">
-                      <img src="img/product/single-product/review-2.png" alt="" />
-                    </div>
-                    <div class="media-body">
-                      <h4>Blake Ruiz</h4>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                    </div>
-                  </div>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo
-                  </p>
-                </div>
-                <div class="review_item">
-                  <div class="media">
-                    <div class="d-flex">
-                      <img src="img/product/single-product/review-3.png" alt="" />
-                    </div>
-                    <div class="media-body">
-                      <h4>Blake Ruiz</h4>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                    </div>
-                  </div>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo
-                  </p>
-                </div>
+                @foreach ($comments as $comment)
+          <div class="review_item">
+            <div class="media">
+            <div class="d-flex">
+              <img src="img/product/single-product/review-1.png" alt="" />
+            </div>
+            <div class="media-body">
+              <h4>{{$comment->name}}</h4>
+              @for ($i = 0; $i < $comment->rating; $i++)
+          <i class="fa fa-star"></i>
+        @endfor
+            </div>
+            </div>
+            <p>
+            {{$comment->comment}}
+            </p>
+          </div>
+        @endforeach
               </div>
             </div>
             <div class="col-lg-6">
               <div class="review_box">
                 <h4>Add a Review</h4>
-                <form action="{{url('add_comment',$product->id)}}" class="row contact_form" action="contact_process.php"
+                <form action="{{url('add_comment', $product->id)}}" class="row contact_form" action="contact_process.php"
                   method="POST" id="contactForm" novalidate="novalidate">
                   @csrf
-                <ul class="list" id="rating">
-                  <li>
-                    <a href="#" data-value="1"><i class="fa fa-star"></i></a>
-                  </li>
-                  <li>
-                    <a href="#" data-value="2"><i class="fa fa-star"></i></a>
-                  </li>
-                  <li>
-                    <a href="#" data-value="3"><i class="fa fa-star"></i></a>
-                  </li>
-                  <li>
-                    <a href="#" data-value="4"><i class="fa fa-star"></i></a>
-                  </li>
-                  <li>
-                    <a href="#" data-value="5"><i class="fa fa-star"></i></a>
-                  </li>
-                </ul>
-                <p>Your Rating: </p> <span id="selected-rating" class="mx-1">0</span>
-                <p>Outstanding</p>
-                <input type="hidden" value="5" id="ratingInput" name="rating">
+                  <ul class="list" id="rating">
+                    <li>
+                      <a href="#" data-value="1"><i class="fa fa-star"></i></a>
+                    </li>
+                    <li>
+                      <a href="#" data-value="2"><i class="fa fa-star"></i></a>
+                    </li>
+                    <li>
+                      <a href="#" data-value="3"><i class="fa fa-star"></i></a>
+                    </li>
+                    <li>
+                      <a href="#" data-value="4"><i class="fa fa-star"></i></a>
+                    </li>
+                    <li>
+                      <a href="#" data-value="5"><i class="fa fa-star"></i></a>
+                    </li>
+                  </ul>
+                  <p>Your Rating: </p> <span id="selected-rating" class="mx-1">0</span>
+                  <p>Outstanding</p>
+                  <input type="hidden" value="5" id="ratingInput" name="rating">
                   <div class="col-md-12">
                     <div class="form-group">
                       <textarea class="form-control" name="message" id="message" rows="3"
@@ -561,42 +526,42 @@
   <script src="home/js/theme.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const ratingList = document.getElementById('rating');
-        const selectedRatingDisplay = document.getElementById('selected-rating');
-        const ratingInput = document.getElementById('ratingInput');
-        const initialRating = 5;
-            const stars = ratingList.querySelectorAll('a');
+      const ratingList = document.getElementById('rating');
+      const selectedRatingDisplay = document.getElementById('selected-rating');
+      const ratingInput = document.getElementById('ratingInput');
+      const initialRating = 5;
+      const stars = ratingList.querySelectorAll('a');
 
-            // Set initial selection
-            for (let i = 0; i < initialRating; i++) {
-                stars[i].classList.add('selected');
-            }
-            selectedRatingDisplay.textContent = 5;
+      // Set initial selection
+      for (let i = 0; i < initialRating; i++) {
+        stars[i].classList.add('selected');
+      }
+      selectedRatingDisplay.textContent = 5;
 
-        ratingList.addEventListener('click', function (e) {
-            e.preventDefault();
+      ratingList.addEventListener('click', function (e) {
+        e.preventDefault();
 
-            if (e.target.tagName === 'I' || e.target.tagName === 'A') {
-                const target = e.target.closest('a');
-                var ratingValue = target.getAttribute('data-value');
-                // Clear previous selections
-                const stars = ratingList.querySelectorAll('a');
-                stars.forEach(star => {
-                    star.classList.remove('selected');
-                });
+        if (e.target.tagName === 'I' || e.target.tagName === 'A') {
+          const target = e.target.closest('a');
+          var ratingValue = target.getAttribute('data-value');
+          // Clear previous selections
+          const stars = ratingList.querySelectorAll('a');
+          stars.forEach(star => {
+            star.classList.remove('selected');
+          });
 
-                // Set the selected rating
-                for (let i = 0; i < ratingValue; i++) {
-                    stars[i].classList.add('selected');
-                }
+          // Set the selected rating
+          for (let i = 0; i < ratingValue; i++) {
+            stars[i].classList.add('selected');
+          }
 
-                // Display the selected rating
-                selectedRatingDisplay.textContent = ratingValue;
-                ratingInput.value=ratingValue;
-            }
-        });
+          // Display the selected rating
+          selectedRatingDisplay.textContent = ratingValue;
+          ratingInput.value = ratingValue;
+        }
+      });
     });
-</script>
+  </script>
 </body>
 
 </html>

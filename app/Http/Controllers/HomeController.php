@@ -49,8 +49,9 @@ class HomeController extends Controller
     }
     public function getProduct($id){
         $product=Product::find($id);
-        $comment=Comment::where("product_id",$id)->get();
-        return view('home.productDetail',compact('product','comment'));
+        $comments=Comment::where("product_id",$id)->get();
+        $rating5=Comment::where("product_id",$id)->where('rating',5)->get()->count();
+        return view('home.productDetail',compact('product','comments',"rating5"));
     }
 
     public function add_cart(Request $request,$id){
