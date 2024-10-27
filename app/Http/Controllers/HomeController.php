@@ -30,7 +30,7 @@ class HomeController extends Controller
         $userType=Auth::user()->userType;
         $products=Product::all()->count();
         $orders=Product::all()->count();
-        $users=Product::all()->count();
+        $users=User::all()->count();
         $orders_total=Order::all();
         $total_revenue=0;
         $total_order=0;
@@ -264,7 +264,7 @@ class HomeController extends Controller
         if (!is_null($minPrice) && !is_null($maxPrice)) {
             $products->whereBetween('price', [(int)$minPrice, (int)$maxPrice]);
         }
-        $products = $products->orderBy('price', $price)->paginate($show);
+        $products = $products->orderBy('price', 'asc')->paginate($show);
         return view("home.products",compact("products","categories",));
     }
     public function addComment(Request $request,$id){

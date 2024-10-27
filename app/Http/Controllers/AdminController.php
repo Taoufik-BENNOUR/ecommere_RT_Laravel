@@ -143,4 +143,15 @@ class AdminController extends Controller
         ->get();
         return view("admin.users",compact("users"));
     }
+    public function filterOrders(Request $request){
+        $query = Order::query(); 
+        if ($request->payment) {
+            $query->where('payment_status', 'LIKE', "%$request->payment%");
+        }
+        if ($request->delivery) {
+            $query->where('delivery_status',  $request->delivery);
+        }
+        $orders = $query->get();
+        return view('admin.order.orders', compact('orders'));
+    }
 }

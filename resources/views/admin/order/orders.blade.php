@@ -54,6 +54,13 @@
                     <h2>Orders</h2>
                         @csrf
                 </div>
+                <div class="d-flex" style="margin-bottom:10px;gap: 10px;">
+                  <a href="{{url('orders')}}" class="btn btn-outline-light">All</a>
+                  <a href="{{url('orders?payment=Paid')}}" class="btn btn-outline-success">Paid</a>
+                  <a href="{{url('orders?payment=Cash on delivery')}}" class="btn btn-outline-warning">Cash on delivery</a>
+                  <a href="{{url('orders?delivery=Delivered')}}" class="btn btn-outline-primary">Delivered</a>
+                  <a href="{{url('orders?delivery=Processing')}}" class="btn btn-outline-danger">Processing</a>
+                </div>
                 <table class="table table-dark">
                   <tr>
                     <td>Id</td>

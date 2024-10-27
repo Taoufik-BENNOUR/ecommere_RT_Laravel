@@ -120,7 +120,7 @@
                             <select class="show"  onchange="location = this.value;">
                                 <option value="{{ url('/products?show=6') }}" {{request('show') =='6' ?"selected":"" }}>Show 6</option>
                                 <option value="{{ url('/products?show=9') }}" {{request('show') =='9' ?"selected":"" }}>Show 9</option>
-                                <option value="{{ url('/products?show=12') }}" {{request('show') =='12' ?"selected":"" }}>Show 12</option>
+                                <option value="{{ url('/products?show=12') }}" {{request('show') =='12' ?"selected":"" }}">Show 12</option>
                             </select>
                         </div>
                     </div>
