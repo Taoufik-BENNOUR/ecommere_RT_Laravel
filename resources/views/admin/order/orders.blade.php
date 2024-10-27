@@ -59,7 +59,8 @@
                   <a href="{{url('orders?payment=Paid')}}" class="btn btn-outline-success">Paid</a>
                   <a href="{{url('orders?payment=Cash on delivery')}}" class="btn btn-outline-warning">Cash on delivery</a>
                   <a href="{{url('orders?delivery=Delivered')}}" class="btn btn-outline-primary">Delivered</a>
-                  <a href="{{url('orders?delivery=Processing')}}" class="btn btn-outline-danger">Processing</a>
+                  <a href="{{url('orders?delivery=Processing')}}" class="btn btn-outline-info">Processing</a>
+                  <a href="{{url('orders?delivery=Canceled')}}" class="btn btn-outline-danger">Canceled</a>
                 </div>
                 <table class="table table-dark">
                   <tr>
@@ -81,8 +82,10 @@
                     <td>{{ $order->id }}</td>
                     <td>{{ $order->user_id }}</td>
                     <td>{{ $order->total_price }}</td>
-                    <td><label class='{{$order->payment_status =='Paid'?"badge badge-success":"badge badge-warning"}}'>{{ $order->payment_status }}</label></td>
-                    <td><label class='{{Str::lower($order->delivery_status) =='processing'?"badge badge-danger":"badge badge-primary"}}'>{{ $order->delivery_status }}</label></td>
+                    <td>
+                      <label class='{{$order->payment_status =='Paid'?"badge badge-success":($order->payment_status =='Canceled' ?"badge badge-danger":"badge badge-warning")}}'>{{ $order->payment_status }}</label>
+                    </td>
+                    <td><label class='{{Str::lower($order->delivery_status) =='processing'?"badge badge-info":($order->payment_status =='Canceled'? "badge badge-danger":"badge badge-primary")}}'>{{ $order->delivery_status }}</label></td>
                     <td>{{ $order->created_at }}</td>
                     <td>
                       <a href="{{url('order_detail',$order->id)}}"><i class="mdi mdi-eye" style="font-size:24px;color:green;cursor:pointer"></i></a>

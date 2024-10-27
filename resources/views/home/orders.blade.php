@@ -69,9 +69,9 @@
                  {{$order->delivery_status}}
                  </td>
                   <td>
-                    <form action="{{url('')}}" method="POST">
+                    <form action="{{url('cancel_order',$order->id)}}" method="POST">
                     @csrf
-                    @METHOD('delete')
+                    @METHOD('PUT')
                     <button type="submit">
                             <i class="fa fa-remove" style="color:red;font-size:16px"></i>
                         </button>
