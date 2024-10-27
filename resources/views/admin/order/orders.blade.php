@@ -62,7 +62,7 @@
                     <td>Payment status</td>
                     <td>Delivery status</td>
                     <td>Order Date</td>
-                    <td>Confirm Devlivery</td>
+                    <td>Order Detail</td>
                     <td>Confirm Payment</td>
                     <td>Confirm Delivery</td>  
                     <td>Print</td>  
@@ -80,8 +80,17 @@
                     <td>
                       <a href="{{url('order_detail',$order->id)}}"><i class="mdi mdi-eye" style="font-size:24px;color:green;cursor:pointer"></i></a>
                     </td>
-                    <td><a class="btn btn-inverse-primary" href="{{url('confirm_payment',$order->id)}}">Confirm Payment</a></td>
-                    <td><a class="btn btn-inverse-secondary" href="{{url('confirm_delivery',$order->id)}}">Confirm Delivery</a></td>
+                    <td>
+                      @if ($order->payment_status !="Paid")
+                      <a class="btn btn-inverse-primary" href="{{url('confirm_payment',$order->id)}}">Confirm Payment</a>
+
+                      @endif
+                    </td>
+                    <td>
+                      @if ($order->delivery_status !="Delivered")
+                      <a class="btn btn-inverse-secondary" href="{{url('confirm_delivery',$order->id)}}">Confirm Delivery</a>
+                      @endif
+                    </td>
                     <td><a href="{{url('print',$order->id)}}"><i class="mdi mdi-file-pdf" style="font-size:30px;color:red;cursor:pointer" ></i></a></td>
                   </tr>
                 @endforeach

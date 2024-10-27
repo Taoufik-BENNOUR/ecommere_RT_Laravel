@@ -59,11 +59,12 @@
                     <td>Id</td>
                     <td>User</td>
                     <td >Email</td>
-                    <td>Product</td>
-                    <td>Quantity</td>
-                    <td>Total Price</td>
                     <td>Phone</td>
                     <td>Address</td>
+                    <td>Product</td>
+                    <td>Quantity</td>
+                    <td>Price</td>
+                    <td>Total Price</td>
                   </tr>
                   <tbody>
 
@@ -72,11 +73,12 @@
                     <td>{{ $order->id }}</td>
                     <td>{{ $order->name }}</td>
                     <td>{{ $order->email }}</td>
+                    <td>{{ $order->phone }}</td>
+                    <td>{{ $order->address }}</td>
                     <td>{{ $order->product_title }}</td>
                     <td>{{ $order->quantity }}</td>
                     <td>{{ $order->price }}</td>
-                    <td>{{ $order->phone }}</td>
-                    <td>{{ $order->address }}</td>
+                    <td>{{ $order->total }}</td>
    
                   </tr>
                 @endforeach

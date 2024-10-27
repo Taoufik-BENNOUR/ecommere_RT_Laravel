@@ -26,9 +26,22 @@ class HomeController extends Controller
     }
     public function redirect(){
         $userType=Auth::user()->userType;
-
+        $products=Product::all()->count();
+        $orders=Product::all()->count();
+        $users=Product::all()->count();
+        $orders_total=Order::all();
+        $total_revenue=0;
+        $total_order=0;
+        foreach ($orders_total as $total) {
+            if($total->payment_status == 'Paid'){
+                $total_revenue+=$total->total_price;
+        }else{
+            $total_order+=$total->total_price;
+        }
+    }
+  
         if($userType=='1'){
-            return view('admin.home');
+            return view('admin.home',compact('products','orders','users','total_revenue','total_order'));
         }else{
             return redirect('/');
         }
@@ -52,7 +65,7 @@ class HomeController extends Controller
             
             if($cart){
                 $cart->quantity += $request->quantity; 
-                $cart->price = $price * $cart->quantity; 
+                $cart->total = $price * $cart->quantity; 
                 $cart->save();
             }else{
             $cart=new Cart;
@@ -64,7 +77,8 @@ class HomeController extends Controller
 
             $cart->product_id=$product->id;
             $cart->product_title=$product->title;
-            $cart->price=$totalPrice;
+            $cart->price=$price;
+            $cart->total=$totalPrice;
             $cart->quantity=$request->quantity;
             $cart->image=$product->image;
             $cart->save();
@@ -117,7 +131,7 @@ class HomeController extends Controller
 
                 foreach ($cartItems as $cartItem) {
                     
-                    $totalPrice += $cartItem->price;
+                    $totalPrice += $cartItem->total;
         
                     $orderItem = new OrderItem;
 
@@ -133,6 +147,7 @@ class HomeController extends Controller
                     $orderItem->product_title = $cartItem->product_title;
                     $orderItem->quantity = $cartItem->quantity;
                     $orderItem->price = $cartItem->price; 
+                    $orderItem->total = $cartItem->total; 
                     $orderItem->save();
         
                     $order->items()->save($orderItem);
@@ -180,7 +195,7 @@ class HomeController extends Controller
         
                         foreach ($cartItems as $cartItem) {
                             
-                            $totalPrice += $cartItem->price;
+                            $totalPrice += $cartItem->total;
                 
                             $orderItem = new OrderItem;
         
@@ -195,7 +210,9 @@ class HomeController extends Controller
         
                             $orderItem->product_title = $cartItem->product_title;
                             $orderItem->quantity = $cartItem->quantity;
-                            $orderItem->price = $cartItem->price; 
+                            $orderItem->price = $cartItem->price;
+                            $orderItem->total = $cartItem->total; 
+ 
                             $orderItem->save();
                 
                             $order->items()->save($orderItem);

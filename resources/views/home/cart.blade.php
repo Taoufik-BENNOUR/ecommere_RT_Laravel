@@ -70,7 +70,7 @@
                     </div>
                   </td>
                   <td>
-                    <h5>${{$cart_info->price / $cart_info->quantity}}</h5>
+                    <h5>${{$cart_info->price}}</h5>
                   </td>
                   <td>
                     <div class="product_count">
@@ -100,7 +100,7 @@
                     </div>
                   </td>
                   <td>
-                    <h5>{{$cart_info->price}}</h5>
+                    <h5>{{$cart_info->total}}</h5>
                   </td>
                   <td>
                     <form action="{{url('delete_cart',$cart_info->id)}}" method="POST">
@@ -139,7 +139,7 @@
                     <?php
                     $total=0;
                     foreach($cart as $cart_info){
-                        $total+=$cart_info->price;
+                        $total+=$cart_info->total;
                     }
                     ?>
                     <h5>$<?= $total; ?></h5>

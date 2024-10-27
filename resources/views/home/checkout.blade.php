@@ -194,7 +194,7 @@
                   <?php
                     $total=0;
                     foreach($cartItems as $cart_info){
-                        $total+=$cart_info->price;
+                        $total+=$cart_info->total;
                     }
                     ?>
                 </ul>

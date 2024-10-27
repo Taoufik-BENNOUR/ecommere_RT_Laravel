@@ -178,8 +178,8 @@ tfoot tr {
                             <td class="column-productcode">{{$order_info->id}}</td>
                             <td class="">{{$order_info->product_title}}</td>
                             <td class="right column-amount">{{$order_info->quantity}}</td>
-                            <td class="right column-price">{{$order_info->price / $order_info->quantity}}</td>
-                            <td class="right column-total-price">{{$order_info->price}}</td>
+                            <td class="right column-price">{{$order_info->price}}</td>
+                            <td class="right column-total-price">{{$order_info->total}}</td>
                         </tr>
                     @endforeach
                     </tbody>
