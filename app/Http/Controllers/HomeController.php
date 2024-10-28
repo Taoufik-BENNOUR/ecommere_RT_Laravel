@@ -29,21 +29,39 @@ class HomeController extends Controller
     public function redirect(){
         $userType=Auth::user()->userType;
         $products=Product::all()->count();
-        $orders=Product::all()->count();
+        $orders=Order::all();
         $users=User::all()->count();
-        $orders_total=Order::all();
         $total_revenue=0;
-        $total_order=0;
-        foreach ($orders_total as $total) {
-            if($total->payment_status == 'Paid'){
-                $total_revenue+=$total->total_price;
-        }else{
-            $total_order+=$total->total_price;
-        }
+        $total_pending=0;
+        $total_canceled=0;
+        $total_paid=0;
+        $nbrPending=0;
+        $nbrCanceled=0;
+        
+        foreach ($orders as $total) {
+            switch ($total->payment_status) {
+                case 'Paid':
+                    $total_revenue+=$total->total_price;
+                    $total_paid+=1;
+                    break;
+                case 'Cash on delivery':
+                    $total_pending+=$total->total_price;
+                    $nbrPending+= 1;
+                    break;
+                case 'Canceled':
+                    $total_canceled+=$total->total_price;
+                    $nbrCanceled+= 1;
+                    break;
+                
+                default:
+                    # code...
+                    break;
+            }
     }
   
         if($userType=='1'){
-            return view('admin.home',compact('products','orders','users','total_revenue','total_order'));
+            return view('admin.home',compact('products','orders',
+            'users','total_revenue','total_pending','total_canceled','total_paid','nbrPending','nbrCanceled'));
         }else{
             return redirect('/');
         }
