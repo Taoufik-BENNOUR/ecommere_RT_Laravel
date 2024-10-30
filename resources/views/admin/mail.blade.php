@@ -45,7 +45,7 @@
         </ul>
 
         <p>If you have any questions about your order, feel free to contact us!</p>
-        <p>Best regards,<br>Your Company Name</p>
+        <p>Best regards,<br>RT</p>
     </div>
 </body>
 </html>
