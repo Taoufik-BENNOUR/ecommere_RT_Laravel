@@ -335,5 +335,17 @@ class HomeController extends Controller
             \Log::error('Email not sent: ' . $e->getMessage());
         }
     }
+    public function updateCart(Request $request, $id){
+ 
 
+        $cartItem = Cart::where('id', $id)->where('user_id', Auth::id())->first();
+
+        if ($cartItem) {
+            $cartItem->quantity = $request->input('quantity');
+            $cartItem->total = $cartItem->quantity * $cartItem->price; // Update total
+            $cartItem->save();
+        }
+
+        return redirect()->back()->with('message', 'Cart updated successfully!');
+    }
 }
