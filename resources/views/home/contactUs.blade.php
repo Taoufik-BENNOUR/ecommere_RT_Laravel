@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <!-- Required meta tags -->
+     <base href="/public">
     <meta charset="utf-8" />
     <meta
       name="viewport"
@@ -22,6 +23,7 @@
     <!-- main css -->
     <link rel="stylesheet" href="home/css/style.css" />
     <link rel="stylesheet" href="home/css/responsive.css" />
+
   </head>
 
   <body>
@@ -46,27 +48,27 @@
           <h2 class="contact-title">Get in Touch</h2>
         </div>
         <div class="col-lg-8 mb-4 mb-lg-0">
-          <form class="form-contact contact_form" action="{{url('contactUs')}}" method="post" id="contactForm" novalidate="novalidate">
+          <form class="form-contact contact_form" action="{{url('contactUs')}}" method="post" id="contactForm">
             @csrf
             <div class="row">
             <div class="col-12">
                 <div class="form-group">
-                  <input class="form-control" name="subject" id="subject" type="text" placeholder="Enter Subject">
+                  <input class="form-control" name="subject" id="subject" type="text" placeholder="Enter Subject" required>
                 </div>
               </div>
               <div class="col-12">
                 <div class="form-group">
-                    <textarea class="form-control w-100" name="message" id="message" cols="30" rows="9" placeholder="Enter Message"></textarea>
+                    <textarea class="form-control w-100" name="message" id="message" cols="30" rows="9" placeholder="Enter Message" required></textarea>
                 </div>
               </div>
               <div class="col-sm-6">
                 <div class="form-group">
-                  <input class="form-control" name="fullname" id="name" type="text" placeholder="Enter your fullname">
+                  <input class="form-control" name="fullname" id="name" type="text" placeholder="Enter your fullname" required>
                 </div>
               </div>
               <div class="col-sm-6">
                 <div class="form-group">
-                  <input class="form-control" name="email" id="email" type="email" placeholder="Enter email address">
+                  <input class="form-control" name="email" id="email" type="email" placeholder="Enter email address" required>
                 </div>
               </div>
             </div>
@@ -82,21 +84,21 @@
           <div class="media contact-info">
             <span class="contact-info__icon"><i class="ti-home"></i></span>
             <div class="media-body">
-              <h3>Buttonwood, California.</h3>
-              <p>Rosemead, CA 91770</p>
+              <h3>Buttonwood, Tunis.</h3>
+              <p>Rosemead</p>
             </div>
           </div>
           <div class="media contact-info">
             <span class="contact-info__icon"><i class="ti-tablet"></i></span>
             <div class="media-body">
-              <h3><a href="tel:454545654">00 (440) 9865 562</a></h3>
+              <h3><a href="tel:454545654">00 (33) 000 111</a></h3>
               <p>Mon to Fri 9am to 6pm</p>
             </div>
           </div>
           <div class="media contact-info">
             <span class="contact-info__icon"><i class="ti-email"></i></span>
             <div class="media-body">
-              <h3><a href="mailto:support@colorlib.com">support@colorlib.com</a></h3>
+              <h3><a href="">support@</a></h3>
               <p>Send us your query anytime!</p>
             </div>
           </div>
@@ -104,6 +106,7 @@
       </div>
     </div>
   </section>
+  
 	<!-- ================ contact section end ================= -->
 
     <!--================ start footer Area  =================-->
@@ -111,7 +114,9 @@
     <!--================ End footer Area  =================-->
 
     <!--================Contact Success and Error message Area =================-->
-    <div id="success" class="modal modal-message fade" role="dialog">
+
+    @if(session()->has('message'))
+    <div id="success" class="fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -124,7 +129,7 @@
             </div>
         </div>
     </div>
-
+    @endif
     <!-- Modals error -->
 
     <!-- <div id="error" class="modal modal-message fade" role="dialog">
@@ -166,6 +171,16 @@
     <!--gmaps Js-->
     <script src="home/js/gmaps.min.js"></script>
     <script src="home/js/theme.js"></script>
+    
+    
+    <script>
+    $(document).ready(function() {
+        var sessionHasMessage = true;
+        if (sessionHasMessage) {
+            $('#success').modal('show');
+        }
+    });
+</script>
 </body>
 
 </html>

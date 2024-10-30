@@ -41,13 +41,13 @@
           <h4>Newsletter</h4>
           <p>You can trust us. we only send promo offers,</p>
           <div class="form-wrap" id="mc_embed_signup">
-            <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
+            <form target="_blank" action=""
               method="get" class="form-inline">
               <input class="form-control" name="EMAIL" placeholder="Your Email Address" onfocus="this.placeholder = ''"
                 onblur="this.placeholder = 'Your Email Address '" required="" type="email">
               <button class="click-btn btn btn-default">Subscribe</button>
               <div style="position: absolute; left: -5000px;">
-                <input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
+                <input name="" tabindex="-1" value="" type="text">
               </div>
 
               <div class="info"></div>
