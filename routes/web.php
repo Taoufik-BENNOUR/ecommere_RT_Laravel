@@ -63,4 +63,6 @@ Route::get('/order_history', [HomeController::class,'getOrders']);
 
 Route::put('/cancel_order/{id}', [HomeController::class,'cancelOrder']);
 
+Route::get('/sentEmail',  action: [AdminController::class,'sendEmail']);
+
 

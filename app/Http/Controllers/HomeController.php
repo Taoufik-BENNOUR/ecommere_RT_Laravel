@@ -13,6 +13,8 @@ use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Comment;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\YourMailable;
 
 use Session;
 use Stripe;
@@ -178,8 +180,10 @@ class HomeController extends Controller
 
                 $order->save();
                 Cart::where('user_id', $user->id)->delete();
+                $this->sendEmail($user, $order);
 
-            return redirect()->back();
+
+            return redirect("/")->with('message','Your Order has been Created');
             
         }else{
             return redirect('login');
@@ -243,7 +247,10 @@ class HomeController extends Controller
         
                         $order->save();
                         Cart::where('user_id', $user->id)->delete();
+
                     }
+                    $this->sendEmail($user, $order);
+
                 Session::flash('success', 'Payment successful!');
                 return redirect()->back();
             } catch (\Stripe\Exception\CardException $e) {
@@ -315,4 +322,18 @@ class HomeController extends Controller
             return redirect('login');
         }
     }
+
+    private function sendEmail($user, $order){
+       
+        
+            $order_detail=OrderItem::where('order_id', $order->id)->get();
+        
+        try {
+            Mail::to("etudiant.bennour.taoufik@uvt.tn")->send(new YourMailable($user, $order,$order_detail));
+            \Log::info('Email sent to: ' . "etudiant.bennour.taoufik@uvt.tn");
+        } catch (\Exception $e) {
+            \Log::error('Email not sent: ' . $e->getMessage());
+        }
+    }
+
 }

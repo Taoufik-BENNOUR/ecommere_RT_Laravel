@@ -44,6 +44,12 @@
 <body>
   <!--================Header Menu Area =================-->
  @include('home.header')
+ @if(session()->has('message'))
+                <div class="alert alert-success">
+                    <button types='button' class='close' data-dismiss="alert" aria-hidden="true">x</button>
+                  {{session()->get('message')}}  
+                </div>
+                @endif
   <!--================Header Menu Area =================-->
   <!--================Home Banner Area =================-->
   @include('home.banner')

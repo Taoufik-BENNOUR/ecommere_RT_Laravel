@@ -9,8 +9,11 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\User;
 use Illuminate\Support\Str;
-
+use App\Mail\YourMailable;
+use Illuminate\Support\Facades\Mail;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Auth;
+
 class AdminController extends Controller
 {
 
@@ -154,4 +157,5 @@ class AdminController extends Controller
         $orders = $query->get();
         return view('admin.order.orders', compact('orders'));
     }
+
 }
