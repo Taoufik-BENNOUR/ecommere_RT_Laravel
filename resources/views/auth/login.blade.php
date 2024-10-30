@@ -11,7 +11,12 @@
                 {{ $value }}
             </div>
         @endsession
-
+        @if(session()->has('error'))
+            <div class="alert alert-warning">
+            <button types='button' class='close' data-dismiss="alert" aria-hidden="true">x</button>
+            {{session()->get('error')}}
+            </div>
+        @endif
         <form method="POST" action="{{ route('login') }}">
             @csrf
 
@@ -34,8 +39,8 @@
 
             <div class="flex items-center justify-end mt-4">
                 @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
+                    <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('register') }}">
+                        {{ __('You dont have an account?') }}
                     </a>
                 @endif
 

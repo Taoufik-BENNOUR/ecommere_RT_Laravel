@@ -157,5 +157,10 @@ class AdminController extends Controller
         $orders = $query->get();
         return view('admin.order.orders', compact('orders'));
     }
-
+    public function blockUser(Request $request,$id){
+        $user=User::find($id);
+         $user->status=="active" ? $user->status="blocked" : $user->status="active" ;
+        $user->save();
+        return redirect()->back();
+    }
 }

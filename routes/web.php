@@ -33,6 +33,7 @@ Route::middleware(['auth:sanctum',AdminMiddleware::class])->group(function () {
     Route::get('/users',  [AdminController::class,'getUsers']);
     Route::get('/users/search',  action: [AdminController::class,'searchUser']);
     Route::get('/orders',  action: [AdminController::class,'filterOrders']);
+    Route::put('/block_user/{id}',  action: [AdminController::class,'blockUser']);
 
 });
 

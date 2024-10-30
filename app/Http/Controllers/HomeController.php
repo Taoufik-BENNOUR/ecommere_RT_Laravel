@@ -28,8 +28,8 @@ class HomeController extends Controller
         
         return view('home.userpage',compact('latestProducts','products','tshirt','discountProducts'));
     }
-    public function redirect(){
-        $userType=Auth::user()->userType;
+    public function redirect(Request $request){
+        $user=Auth::user();
         $products=Product::all()->count();
         $orders=Order::all();
         $users=User::all()->count();
@@ -39,6 +39,13 @@ class HomeController extends Controller
         $total_paid=0;
         $nbrPending=0;
         $nbrCanceled=0;
+   
+            if ($user->status === 'blocked') {
+                Auth::logout(); // Log the user out
+                return redirect()->back()->with('error', 'Your account is blocked! Contact support.');
+            }
+
+            // Redirect to the intended page
         
         foreach ($orders as $total) {
             switch ($total->payment_status) {
@@ -61,12 +68,13 @@ class HomeController extends Controller
             }
     }
   
-        if($userType=='1'){
+        if($user->userType=='1'){
             return view('admin.home',compact('products','orders',
             'users','total_revenue','total_pending','total_canceled','total_paid','nbrPending','nbrCanceled'));
         }else{
             return redirect('/');
         }
+
     }
     public function getProduct($id){
         $product=Product::find($id);

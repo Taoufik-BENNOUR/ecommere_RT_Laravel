@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <base href="/public">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Product Admin</title>
+  <title>user Admin</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="admin/assets/vendors/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="admin/assets/vendors/css/vendor.bundle.base.css">
@@ -76,23 +76,34 @@
               <td>Email</td>
               <td>Address</td>
               <td>Phone</td>
+              <td>Status</td>
               <td>Action</td>
             </tr>
             <tbody>
 
-              @foreach($users as $key =>$product)
+              @foreach($users as $key =>$user)
           <tr>
           <td>{{ $key+1 }}</td>
-          <td>{{ $product->id }}</td>
-          <td>{{ $product->name }}</td>
-          <td>{{ $product->email }}</td>
-          <td>{{ $product->address }}</td>
-          <td>{{ $product->phone }}</td>
+          <td>{{ $user->id }}</td>
+          <td>{{ $user->name }}</td>
+          <td>{{ $user->email }}</td>
+          <td>{{ $user->address }}</td>
+          <td>{{ $user->phone }}</td>
+          <td class="{{ $user->status=="active"?'text-success':'text-danger' }}">{{ $user->status }}</td>
           <td>
-            <a onclick="return confirm('Are You Sure To Delete')" href="{{url('delete_product', $product->id)}}"><i
-              class="mdi mdi-delete-forever" style="font-size:24px;color:red;cursor:pointer"></i></a>
-            <a href="{{url('update_product', $product->id)}}"><i class="mdi mdi-pencil-box-outline"
-              style="font-size:24px;color:green;cursor:pointer"></i></a>
+            <form action="{{url('block_user', $user->id)}}" method="post" onsubmit="return confirm('Are You Sure To {{$user->status=='active'?'block':'activate'}}  User')" >
+            @method('put')
+            @csrf
+            <button type="submit" style="background:none;border:none;">
+                @if ($user->status =="active")
+                <i class="mdi mdi-block-helper" style="font-size:24px;color:red;cursor:pointer"></i>
+                @else
+                <i class="mdi mdi-check-circle" style="font-size:24px;color:green;cursor:pointer"></i>
+                @endif
+              </button>
+            </form>
+            <!-- <a href="{{url('update_user', $user->id)}}"><i class="mdi mdi-pencil-box-outline"
+              style="font-size:24px;color:green;cursor:pointer"></i></a> -->
 
           </td>
           </tr>
