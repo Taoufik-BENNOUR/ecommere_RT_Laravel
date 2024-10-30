@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ContactUsEmail;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
@@ -316,8 +317,13 @@ class HomeController extends Controller
         }
     }
     public function getOrders(){
-        $orders = Order::where('user_id',Auth::user()->id)->orderBy('created_at','desc')->get();
-        return view('home.orders',compact('orders'));
+        if(Auth::id()){
+            $orders = Order::where('user_id',Auth::user()->id)->orderBy('created_at','desc')->get();
+            return view('home.orders',compact('orders'));
+        }else{
+            return redirect('login');
+        }
+
     }
     public function cancelOrder($id){
         if(Auth::id()){
@@ -356,4 +362,18 @@ class HomeController extends Controller
 
         return redirect()->back()->with('message', 'Cart updated successfully!');
     }
+
+
+    public function contactUsEmail(Request $request){
+        $fullname=$request->fullname;
+        $email=$request->email;
+        $subject=$request->subject;
+        $content=$request->message;
+        Mail::to("etudiant.bennour.taoufik@uvt.tn")->send(new ContactUsEmail($fullname,$email,$subject, $content));
+       return redirect()->back()->with("message","");
+    }
+    public function contact(){
+        return view("home.contactUs");
+    }
+
 }

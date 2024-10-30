@@ -66,6 +66,10 @@ Route::put('/cancel_order/{id}', [HomeController::class,'cancelOrder']);
 
 Route::put('/update_cart/{id}', [HomeController::class,'updateCart']);
 
-Route::get('/sentEmail',   [AdminController::class,'sendEmail']);
+Route::post('/contactUs',   [HomeController::class,'contactUsEmail']);
+
+Route::get('/contact',   [HomeController::class,'contact']);
+
+
 
 
