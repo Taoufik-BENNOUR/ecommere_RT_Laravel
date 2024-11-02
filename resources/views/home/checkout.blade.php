@@ -144,19 +144,19 @@
                 </ul>
                 <ul class="list list_2">
                   <li>
-                    <a href="#"
+                    <a 
                       >Subtotal
                       <span>$<?= $total;?></span>
                     </a>
                   </li>
                   <li>
-                    <a href="#"
+                    <a 
                       >Shipping
-                      <span>Flat rate: $50.00</span>
+                      <span>Free</span>
                     </a>
                   </li>
                   <li>
-                    <a href="#"
+                    <a 
                       >Total
                       <span>$<?= $total;?></span>
                     </a>
@@ -184,11 +184,7 @@
                     Please check your CC
                   </p>
                 </div>
-                <div class="creat_account">
-                  <input type="checkbox" id="f-option4" name="selector" required/>
-                  <label for="f-option4">I’ve read and accept the </label>
-                  <a href="#">terms & conditions*</a>
-                </div>
+
                 <div id="payment-container">
                   
                   <form action="{{url('command')}}" method="POST" id="payment-form" style="display:none;"> 

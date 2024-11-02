@@ -70,6 +70,8 @@ Route::post('/contactUs',   [HomeController::class,'contactUsEmail']);
 
 Route::get('/contact',   [HomeController::class,'contact']);
 
+Route::get('*',   [HomeController::class,'contact']);
+
 
 
 

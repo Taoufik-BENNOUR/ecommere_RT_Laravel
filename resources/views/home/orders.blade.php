@@ -69,12 +69,15 @@
                  {{$order->delivery_status}}
                  </td>
                   <td>
-                    <form action="{{url('cancel_order',$order->id)}}" method="POST">
+                    <form action="{{url('cancel_order',$order->id)}}" method="POST" onsubmit="return confirm('Are You Sure You Want To Cancel Order?');">
                     @csrf
                     @METHOD('PUT')
-                    <button type="submit">
+                    @if($order->delivery_status!='Canceled')
+                      <button type="submit">
                             <i class="fa fa-remove" style="color:red;font-size:16px"></i>
                         </button>
+                    
+                    @endif
                     </form>             
                   </td>
                 </tr>

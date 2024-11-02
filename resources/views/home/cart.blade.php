@@ -113,13 +113,7 @@
                 </td>
                 <td></td>
                 <td></td>
-                <td>
-                  <div class="cupon_text">
-                    <input type="text" placeholder="Coupon Code" />
-                    <a class="main_btn" href="#">Apply</a>
-                    <a class="gray_btn" href="#">Close Coupon</a>
-                  </div>
-                </td>
+
               </tr>
               <tr>
                 <td></td>
@@ -146,12 +140,10 @@
                 <td>
                   <div class="shipping_box">
                     <ul class="list">
-                      <li>
+                      <li class="active">
                         <a href="#">Free Shipping</a>
                       </li>
-                      <li class="active">
-                        <a href="#">Local Delivery: $2.00</a>
-                      </li>
+      
                     </ul>
                   </div>
                 </td>
