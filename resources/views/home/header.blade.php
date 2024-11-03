@@ -1,3 +1,4 @@
+
 <header class="header_area">
   <div class="top_menu">
     <div class="container">
@@ -54,8 +55,6 @@
                 <li class="nav-item">
                   <a class="nav-link" href="{{url('contact')}}">Contact</a>
                 </li>
-                </li>
-
 
               </ul>
             </div>
@@ -79,14 +78,31 @@
                     <i class="ti-user" aria-hidden="true"></i>
                   </a>
                 </li>
-
-
                 @if (Route::has('login'))
           @auth
-        <li class="nav-item">
-        <x-app-layout>
-        </x-app-layout>
-        </li>
+      <li class="nav-item submenu dropdown" style="margin-left:20px !important;">
+                    <a href="#" class="nav-link dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true"
+                      aria-expanded="false"> {{ Auth::user()->name }} <i class="fa fa-caret-down"></i></a>
+                      
+                    <ul class="dropdown-menu">
+        
+                      <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/user/profile') }}">Profile</a>
+                      </li>
+                      @if(Auth::user()->userType == 1)
+                      <li class="nav-item">
+                        <a class="nav-link" href={{ url('/dashboard') }}>Dashboard</a>
+                      </li>
+                        @endif
+          
+                      <form method="POST" action="{{ route('logout') }}" class="nav-item" style="width:100%">
+                      @csrf
+                        <button type="submit" class="nav-link" style="border:none;">
+                            {{ __('Log Out') }}
+                        </button>
+                    </form>
+                    </ul>
+                  </li>
       @else
       <li class="">
       <a class="btn btn-outline-success" href="{{route('login')}}">Login</a>
@@ -95,8 +111,10 @@
       <a class="btn btn-outline-success" href="{{route('register')}}"><i class="fa fa-user-plus"
         aria-hidden="true"></i></a>
       </li>
-    @endauth
-        @endif
+               @endauth
+                 @endif
+
+
               </ul>
             </div>
           </div>

@@ -7,7 +7,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <link rel="icon" href="img/favicon.png" type="image/png" />
-  <title>Eiser ecommerce</title>
+  <title>RT ecommerce</title>
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="{{ asset('home/css/bootstrap.css') }}" />
   <link rel="stylesheet" href="{{ asset('home/vendors/linericon/style.css') }}" />
@@ -60,26 +60,9 @@
         <div class="col-lg-6">
           <div class="s_product_img">
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-              <ol class="carousel-indicators">
-                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active">
-                  <img src="img/product/single-product/s-product-s-2.jpg" alt="" />
-                </li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="1">
-                  <img src="img/product/single-product/s-product-s-3.jpg" alt="" />
-                </li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="2">
-                  <img src="img/product/single-product/s-product-s-4.jpg" alt="" />
-                </li>
-              </ol>
               <div class="carousel-inner">
                 <div class="carousel-item active">
                   <img class="d-block w-100" src="{{ asset('product/' . $product->image) }}" alt="First slide" />
-                </div>
-                <div class="carousel-item">
-                  <img class="d-block w-100" src="img/product/single-product/s-product-1.jpg" alt="Second slide" />
-                </div>
-                <div class="carousel-item">
-                  <img class="d-block w-100" src="img/product/single-product/s-product-1.jpg" alt="Third slide" />
                 </div>
               </div>
             </div>
@@ -129,12 +112,6 @@
 
               <button class="main_btn" href="#">Add to Cart</button>
 
-              <a class="icon_btn" href="#">
-                <i class="lnr lnr lnr-diamond"></i>
-              </a>
-              <a class="icon_btn" href="#">
-                <i class="lnr lnr lnr-heart"></i>
-              </a>
             </div>
           </div>
           </form>
@@ -156,10 +133,10 @@
           <a class="nav-link" id="profile-tab" data-toggle="tab" href="#specification" role="tab"
             aria-controls="specification" aria-selected="false">Specification</a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
             aria-selected="false">Comments</a>
-        </li>
+        </li> -->
         <li class="nav-item">
           <a class="nav-link active" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
             aria-selected="false">Reviews</a>
@@ -168,22 +145,7 @@
       <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
           <p>
-            Beryl Cook is one of Britain’s most talented and amusing artists
-            .Beryl’s pictures feature women of all shapes and sizes enjoying
-            themselves .Born between the two world wars, Beryl Cook eventually
-            left Kendrick School in Reading at the age of 15, where she went
-            to secretarial school and then into an insurance office. After
-            moving to London and then Hampton, she eventually married her next
-            door neighbour from Reading, John Cook. He was an officer in the
-            Merchant Navy and after he left the sea in 1956, they bought a pub
-            for a year before John took a job in Southern Rhodesia with a
-            motor company. Beryl bought their young son a box of watercolours,
-            and when showing him how to use it, she decided that she herself
-            quite enjoyed painting. John subsequently bought her a child’s
-            painting set for her birthday and it was with this that she
-            produced her first significant work, a half-length portrait of a
-            dark-skinned lady with a vacant expression and large drooping
-            breasts. It was aptly named ‘Hangover’ by Beryl’s husband and
+            {{$product->description}}
           </p>
           <p>
             It is often frustrating to attempt to plan meals that are designed
