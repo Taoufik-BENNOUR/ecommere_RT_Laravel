@@ -61,7 +61,7 @@
     <script>
         $(function() {
             var data = {
-                labels: ["Paid", "Pending", "Canceled"], /
+                labels: ["Paid", "Pending", "Canceled"], 
                 datasets: [{
                     label: '# of Orders',
                     data: [{{$total_paid}}, {{$nbrPending}}, {{$nbrCanceled}},0], 
