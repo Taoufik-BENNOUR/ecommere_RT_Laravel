@@ -61,10 +61,10 @@
     <script>
         $(function() {
             var data = {
-                labels: ["Paid", "Pending", "Canceled"], // Removed duplicate 2014
+                labels: ["Paid", "Pending", "Canceled"], /
                 datasets: [{
                     label: '# of Orders',
-                    data: [{{$total_paid}}, {{$nbrPending}}, {{$nbrCanceled}},0], // Adjusted to match the labels
+                    data: [{{$total_paid}}, {{$nbrPending}}, {{$nbrCanceled}},0], 
                     backgroundColor: [
                       'rgba(75, 192, 192, 0.2)',
                       'rgba(255, 206, 86, 0.2)',

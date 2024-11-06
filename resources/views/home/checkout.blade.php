@@ -232,11 +232,11 @@
         const creditcard = document.getElementById('alternative-link');
 
         if (this.value === 'credit_card') {
-            cash.style.display = 'none'; // Show the form
-            creditcard.style.display = 'block';  // Hide the link
+            cash.style.display = 'none'; 
+            creditcard.style.display = 'block'; 
         } else {
-            cash.style.display = 'block';   // Hide the form
-            creditcard.style.display = 'none';  // Show the link
+            cash.style.display = 'block';  
+            creditcard.style.display = 'none';  
         }
         document.querySelector('input[name="payment_method"]:checked').dispatchEvent(new Event('change'));
 

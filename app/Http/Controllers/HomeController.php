@@ -42,11 +42,10 @@ class HomeController extends Controller
         $nbrCanceled=0;
    
             if ($user->status === 'blocked') {
-                Auth::logout(); // Log the user out
+                Auth::logout(); 
                 return redirect()->back()->with('error', 'Your account is blocked! Contact support.');
             }
 
-            // Redirect to the intended page
         
         foreach ($orders as $total) {
             switch ($total->payment_status) {
@@ -64,7 +63,6 @@ class HomeController extends Controller
                     break;
                 
                 default:
-                    # code...
                     break;
             }
     }
@@ -263,11 +261,9 @@ class HomeController extends Controller
                 Session::flash('success', 'Payment successful!');
                 return redirect()->back();
             } catch (\Stripe\Exception\CardException $e) {
-                // Handle card errors
                 Session::flash('error', $e->getMessage());
                 return back()->withErrors(['payment' => "Your card was declined."]);
             } catch (\Exception $e) {
-                // Handle other errors
                 Session::flash('error', 'An error occurred while processing your payment. Please try again.');
                 return back()->withErrors(['payment' => 'An error occurred.']);
             }
