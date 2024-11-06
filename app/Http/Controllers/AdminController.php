@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
@@ -162,5 +163,15 @@ class AdminController extends Controller
          $user->status=="active" ? $user->status="blocked" : $user->status="active" ;
         $user->save();
         return redirect()->back();
+    }
+
+    public function getComments(){
+        $comments=Comment::all();
+        return view("admin.comments",compact("comments"));
+    }
+    public function deleteComment(Request $request,$id){
+        $comment=Comment::find($id);
+        $comment->delete();
+        return redirect()->back()->with("success","Comment deleted");
     }
 }

@@ -31,9 +31,11 @@ Route::middleware(['auth:sanctum',AdminMiddleware::class])->group(function () {
     Route::get('/print/{id}',  [AdminController::class,'printOrder']);
     Route::get('/search',   [AdminController::class,'searchProduct']);
     Route::get('/users',  [AdminController::class,'getUsers']);
-    Route::get('/users/search',  action: [AdminController::class,'searchUser']);
-    Route::get('/orders',  action: [AdminController::class,'filterOrders']);
-    Route::put('/block_user/{id}',  action: [AdminController::class,'blockUser']);
+    Route::get('/users/search',   [AdminController::class,'searchUser']);
+    Route::get('/orders',   [AdminController::class,'filterOrders']);
+    Route::put('/block_user/{id}',   [AdminController::class,'blockUser']);
+    Route::get('/comments',   [AdminController::class,'getComments']);
+    Route::delete('/delete_comment/{id}',   [AdminController::class,'deleteComment']);
 
 });
 

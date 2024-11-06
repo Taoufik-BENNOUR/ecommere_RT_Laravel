@@ -92,5 +92,13 @@
               <span class="menu-title">Users</span>
             </a>
           </li>
+          <li class="nav-item menu-items">
+            <a class="nav-link" href="{{url('comments')}}">
+              <span class="menu-icon">
+                <i class="mdi mdi-pen"></i>
+              </span>
+              <span class="menu-title">Comments</span>
+            </a>
+          </li>
         </ul>
       </nav>
