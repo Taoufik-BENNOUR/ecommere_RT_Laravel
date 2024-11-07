@@ -9,7 +9,7 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <link rel="icon" href="home/img/favicon.png" type="image/png" />
-    <title>Eiser ecommerce</title>
+    <title>RT ecommerce</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="home/css/bootstrap.css" />
     <link rel="stylesheet" href="home/vendors/linericon/style.css" />
@@ -39,7 +39,12 @@
   'linkTitle' => 'Contact'
 ])
     <!--================End Home Banner Area =================-->
-
+    @if(session()->has('message'))
+                <div class="alert alert-success">
+                    <button types='button' class='close' data-dismiss="alert" aria-hidden="true">x</button>
+                  {{session()->get('message')}}  
+                </div>
+   @endif
     <!-- ================ contact section start ================= -->
   <section class="section_gap">
     <div class="container">
@@ -113,39 +118,6 @@
 @include('home.footer')
     <!--================ End footer Area  =================-->
 
-    <!--================Contact Success and Error message Area =================-->
-
-    @if(session()->has('message'))
-    <div id="success" class="fade" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <i class="fa fa-close"></i>
-                    </button>
-                    <h2>Thank you</h2>
-                    <p>Your message is successfully sent...</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    @endif
-    <!-- Modals error -->
-
-    <!-- <div id="error" class="modal modal-message fade" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <i class="fa fa-close"></i>
-                    </button>
-                    <h2>Sorry !</h2>
-                    <p> Something went wrong </p>
-                </div>
-            </div>
-        </div>
-    </div> -->
-    <!--================End Contact Success and Error message Area =================-->
 
 
 
@@ -172,15 +144,7 @@
     <script src="home/js/gmaps.min.js"></script>
     <script src="home/js/theme.js"></script>
     
-    
-    <script>
-    $(document).ready(function() {
-        var sessionHasMessage = true;
-        if (sessionHasMessage) {
-            $('#success').modal('show');
-        }
-    });
-</script>
+
 </body>
 
 </html>
