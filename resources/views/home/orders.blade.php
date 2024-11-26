@@ -73,7 +73,7 @@
                     @csrf
                     @METHOD('PUT')
                     @if($order->delivery_status!='Canceled')
-                      <button type="submit">
+                      <button type="submit" style="border:none;background:none;cursor:pointer;">
                             <i class="fa fa-remove" style="color:red;font-size:16px"></i>
                         </button>
                     
