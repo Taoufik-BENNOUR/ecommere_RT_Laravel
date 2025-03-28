@@ -36,7 +36,7 @@ Route::middleware(['auth:sanctum',AdminMiddleware::class])->group(function () {
     Route::put('/block_user/{id}',   [AdminController::class,'blockUser']);
     Route::get('/comments',   [AdminController::class,'getComments']);
     Route::delete('/delete_comment/{id}',   [AdminController::class,'deleteComment']);
-
+//
 });
 
 
